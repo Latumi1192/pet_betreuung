@@ -43,7 +43,7 @@ export default function DenseAppBar() {
               </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+              <Button sx={{ my: 2, color: 'white', display: 'block' }} href="/signin">
                 Sign In
               </Button>
           </Typography>
