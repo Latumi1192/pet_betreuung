@@ -1,8 +1,8 @@
-import FormPropsTextFields from "./Components/FormPropsTextFields"
+import SignUp_Page from "./Components/SignUp_Page"
 
 const Home = () => {
   return (
-    <FormPropsTextFields/>  
+    <SignUp_Page/>
     )
 }
 
