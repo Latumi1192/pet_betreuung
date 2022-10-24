@@ -1,11 +1,9 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import FormPropsTextFields from "./Components/FormPropsTextFields"
 
 const Home = () => {
   return (
-    <div>Hello World!!</div>  )
+    <FormPropsTextFields/>  
+    )
 }
 
 export default Home
