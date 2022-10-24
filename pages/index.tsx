@@ -1,12 +1,8 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import DrawerAppBar from './Components/DrawerAppBar'
+import DenseAppBar from './Components/DenseAppBar'
 
 const Home = () => {
   return (
-    <DrawerAppBar/> )
+    <DenseAppBar/> )
 }
 
 export default Home
