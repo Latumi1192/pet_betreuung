@@ -1,7 +1,7 @@
-import SignUp_Page from '../components/SignUp';
+import DenseAppBar from './Components/DenseAppBar';
 
 const Home = () => {
-  return 'HOME';
+  return <DenseAppBar />;
 };
 
 export default Home;
