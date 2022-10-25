@@ -4,12 +4,12 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControlLabel, Checkbox } from '@mui/material';
 
-export default function SignIn_Page() {
+export default function SignIn() {
   return (
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
       noValidate
       autoComplete="off"
@@ -36,7 +36,7 @@ export default function SignIn_Page() {
         <Button
           variant="contained"
           onClick={() => {
-            alert("clicked");
+            alert('clicked');
           }}
         >
           Sign In
@@ -50,7 +50,7 @@ export default function SignIn_Page() {
         <Button
           variant="contained"
           onClick={() => {
-            alert("clicked");
+            alert('clicked');
           }}
         >
           Sign Up

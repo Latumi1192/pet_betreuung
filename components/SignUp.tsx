@@ -1,10 +1,17 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { FormGroup, Checkbox, FormControlLabel, Button, Menu, MenuItem } from '@mui/material';
+import {
+  FormGroup,
+  Checkbox,
+  FormControlLabel,
+  Button,
+  Menu,
+  MenuItem,
+} from '@mui/material';
 
-export default function SignUp_Page() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+export default function SignUp() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -16,7 +23,7 @@ export default function SignUp_Page() {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
       noValidate
       autoComplete="off"
@@ -65,9 +72,9 @@ export default function SignUp_Page() {
       <div>
         <Button
           id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
+          aria-controls={open ? 'basic-menu' : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
+          aria-expanded={open ? 'true' : undefined}
           variant="outlined"
           onClick={handleClick}
         >
@@ -79,7 +86,7 @@ export default function SignUp_Page() {
           open={open}
           onClose={handleClose}
           MenuListProps={{
-            "aria-labelledby": "basic-button",
+            'aria-labelledby': 'basic-button',
           }}
         >
           <MenuItem onClick={handleClose}>Male</MenuItem>
