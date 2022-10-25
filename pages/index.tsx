@@ -1,8 +1,7 @@
 import DenseAppBar from './Components/DenseAppBar'
 
 const Home = () => {
-  return (
-    <DenseAppBar/> )
+  return ( <DenseAppBar/> )
 }
 
 export default Home
