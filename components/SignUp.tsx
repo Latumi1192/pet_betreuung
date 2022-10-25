@@ -12,6 +12,7 @@ import {
 
 export default function SignUp() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -143,7 +144,9 @@ export default function SignUp() {
         />
       </FormGroup>
       <div>
-        <Button variant="contained">Sign Up</Button>
+        <Button variant="contained" onClick={() => console.log('signup....')}>
+          Sign Up
+        </Button>
       </div>
     </Box>
   );

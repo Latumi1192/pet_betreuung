@@ -3,8 +3,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControlLabel, Checkbox } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export default function SignIn() {
+  const router = useRouter();
   return (
     <Box
       component="form"
@@ -47,12 +49,7 @@ export default function SignIn() {
       </a>
       OR
       <div>
-        <Button
-          variant="contained"
-          onClick={() => {
-            alert('clicked');
-          }}
-        >
+        <Button variant="contained" onClick={() => router.push('signup')}>
           Sign Up
         </Button>
       </div>

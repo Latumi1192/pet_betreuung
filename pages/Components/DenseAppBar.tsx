@@ -5,47 +5,52 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@mui/material/Button'
+import Button from '@mui/material/Button';
+import { useRouter } from 'next/router';
 
 export default function DenseAppBar() {
+  const router = useRouter();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar variant="dense">
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }} href="/">
-                Logo
-              </Button>
+            <Button sx={{ my: 2, color: 'white', display: 'block' }} href="/">
+              Logo
+            </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                Find a Host
-              </Button>
+            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+              Find a Host
+            </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                Be a Host
-              </Button>
+            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+              Be a Host
+            </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                Tips
-              </Button>
+            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+              Tips
+            </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                Blogs
-              </Button>
+            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+              Blogs
+            </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                Contacts
-              </Button>
+            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+              Contacts
+            </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-              <Button sx={{ my: 2, color: 'white', display: 'block' }} href="/signin">
-                Sign In
-              </Button>
+            <Button
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              onClick={() => router.push('/signin')}
+            >
+              Sign In
+            </Button>
           </Typography>
         </Toolbar>
       </AppBar>
