@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import {
   FormGroup,
   Checkbox,
@@ -8,9 +8,9 @@ import {
   Button,
   Menu,
   MenuItem,
-} from '@mui/material';
+} from "@mui/material";
 
-export default function SignUp() {
+export default function SignUpForm() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -24,19 +24,27 @@ export default function SignUp() {
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        border: 3,
+        borderColor: "primary.main",
+        borderRadius: "16px",
+        "& .MuiTextField-root": { m: 2, width: "25ch" },
+        "& .MuiButton-root": { m: 1 },
+        "& .FormGroup-root": { m: 0 },
+        "& .MuiFormControlLabel-root": { m: 0 },
       }}
       noValidate
       autoComplete="off"
     >
       <div>
         <TextField
+          focused
           required
           id="outlined-required"
           label="First Name"
           placeholder="Hello World"
         />
         <TextField
+          focused
           required
           id="outlined-required"
           label="Last Name"
@@ -45,24 +53,30 @@ export default function SignUp() {
       </div>
       <div>
         <TextField
+          focused
           required
           id="outlined-required"
           label="Addresse"
           placeholder="Hello World"
         />
         <TextField
+          focused
           required
           id="outlined-required"
           label="ZIP Code"
           placeholder="Hello World"
         />
+      </div>
+      <div>
         <TextField
+          focused
           required
           id="outlined-required"
           label="City"
           placeholder="Hello World"
         />
         <TextField
+          focused
           required
           id="outlined-required"
           label="Country"
@@ -73,9 +87,9 @@ export default function SignUp() {
       <div>
         <Button
           id="basic-button"
-          aria-controls={open ? 'basic-menu' : undefined}
+          aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={open ? "true" : undefined}
           variant="outlined"
           onClick={handleClick}
         >
@@ -87,7 +101,7 @@ export default function SignUp() {
           open={open}
           onClose={handleClose}
           MenuListProps={{
-            'aria-labelledby': 'basic-button',
+            "aria-labelledby": "basic-button",
           }}
         >
           <MenuItem onClick={handleClose}>Male</MenuItem>
@@ -97,6 +111,7 @@ export default function SignUp() {
       </div>
       <div>
         <TextField
+          focused
           required
           id="outlined-required"
           label="Account"
@@ -105,6 +120,7 @@ export default function SignUp() {
       </div>
       <div>
         <TextField
+          focused
           required
           id="outlined-required"
           label="Password"
@@ -113,6 +129,7 @@ export default function SignUp() {
       </div>
       <div>
         <TextField
+          focused
           required
           id="outlined-required"
           label="Password again"
@@ -121,6 +138,7 @@ export default function SignUp() {
       </div>
       <div>
         <TextField
+          focused
           required
           id="outlined-required"
           label="Email"
@@ -144,7 +162,7 @@ export default function SignUp() {
         />
       </FormGroup>
       <div>
-        <Button variant="contained" onClick={() => console.log('signup....')}>
+        <Button variant="contained" onClick={() => console.log("signup....")}>
           Sign Up
         </Button>
       </div>
