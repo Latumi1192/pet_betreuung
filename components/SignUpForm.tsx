@@ -9,17 +9,9 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
+import GenderButton from "./GenderButton";
 
 export default function SignUpForm() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   return (
     <Box
       component="form"
@@ -28,8 +20,8 @@ export default function SignUpForm() {
         borderColor: "primary.main",
         borderRadius: "16px",
         "& .MuiTextField-root": { m: 2, width: "25ch" },
-        "& .MuiButton-root": { m: 1 },
-        "& .FormGroup-root": { m: 0 },
+        "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
+        "& .MuiFormGroup-root": { mt: 0, ml: 1 },
         "& .MuiFormControlLabel-root": { m: 0 },
       }}
       noValidate
@@ -41,14 +33,14 @@ export default function SignUpForm() {
           required
           id="outlined-required"
           label="First Name"
-          placeholder="Hello World"
+          placeholder="Enter your first name"
         />
         <TextField
           focused
           required
           id="outlined-required"
           label="Last Name"
-          placeholder="Hello World"
+          placeholder="Enter your last name"
         />
       </div>
       <div>
@@ -57,14 +49,14 @@ export default function SignUpForm() {
           required
           id="outlined-required"
           label="Addresse"
-          placeholder="Hello World"
+          placeholder="Enter your addresse"
         />
         <TextField
           focused
           required
           id="outlined-required"
           label="ZIP Code"
-          placeholder="Hello World"
+          placeholder="12345"
         />
       </div>
       <div>
@@ -73,41 +65,19 @@ export default function SignUpForm() {
           required
           id="outlined-required"
           label="City"
-          placeholder="Hello World"
+          placeholder="Hamburg"
         />
         <TextField
           focused
           required
           id="outlined-required"
           label="Country"
-          placeholder="Hello World"
+          placeholder="Germany"
         />
       </div>
 
       <div>
-        <Button
-          id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          variant="outlined"
-          onClick={handleClick}
-        >
-          Gender
-        </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem onClick={handleClose}>Male</MenuItem>
-          <MenuItem onClick={handleClose}>Female</MenuItem>
-          <MenuItem onClick={handleClose}>Other</MenuItem>
-        </Menu>
+        <GenderButton />
       </div>
       <div>
         <TextField
@@ -115,7 +85,7 @@ export default function SignUpForm() {
           required
           id="outlined-required"
           label="Account"
-          placeholder="Hello World"
+          placeholder="Account"
         />
       </div>
       <div>
@@ -124,7 +94,7 @@ export default function SignUpForm() {
           required
           id="outlined-required"
           label="Password"
-          placeholder="Hello World"
+          placeholder="Password"
         />
       </div>
       <div>
@@ -133,7 +103,7 @@ export default function SignUpForm() {
           required
           id="outlined-required"
           label="Password again"
-          placeholder="Hello World"
+          placeholder="Password again"
         />
       </div>
       <div>
@@ -142,7 +112,7 @@ export default function SignUpForm() {
           required
           id="outlined-required"
           label="Email"
-          placeholder="Hello World"
+          placeholder="abc@xy.z"
         />
       </div>
       <div>
