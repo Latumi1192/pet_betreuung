@@ -1,7 +1,10 @@
-import DenseAppBar from './Components/DenseAppBar';
+import PageBar from "../components/PageBar";
+import SignInForm from "../components/SignInForm";
+import SignUpForm from "../components/SignUpForm";
+
 
 const Home = () => {
-  return <DenseAppBar />;
+  return <PageBar />;
 };
 
 export default Home;
