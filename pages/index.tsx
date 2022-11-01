@@ -1,7 +1,4 @@
-import PageBar from "../components/PageBar";
-import SignInForm from "../components/SignInForm";
-import SignUpForm from "../components/SignUpForm";
-
+import PageBar from '../components/PageBar';
 
 const Home = () => {
   return <PageBar />;

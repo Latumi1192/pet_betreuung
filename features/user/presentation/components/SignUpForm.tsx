@@ -1,15 +1,8 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import {
-  FormGroup,
-  Checkbox,
-  FormControlLabel,
-  Button,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-import GenderButton from "./GenderButton";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { FormGroup, Checkbox, FormControlLabel, Button } from '@mui/material';
+import GenderButton from './GenderButton';
 
 export default function SignUpForm() {
   return (
@@ -17,12 +10,12 @@ export default function SignUpForm() {
       component="form"
       sx={{
         border: 3,
-        borderColor: "primary.main",
-        borderRadius: "16px",
-        "& .MuiTextField-root": { m: 2, width: "25ch" },
-        "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
-        "& .MuiFormGroup-root": { mt: 0, ml: 1 },
-        "& .MuiFormControlLabel-root": { m: 0 },
+        borderColor: 'primary.main',
+        borderRadius: '16px',
+        '& .MuiTextField-root': { m: 2, width: '25ch' },
+        '& .MuiButton-root': { mt: 1, ml: 2, mb: 1 },
+        '& .MuiFormGroup-root': { mt: 0, ml: 1 },
+        '& .MuiFormControlLabel-root': { m: 0 },
       }}
       noValidate
       autoComplete="off"
@@ -132,7 +125,7 @@ export default function SignUpForm() {
         />
       </FormGroup>
       <div>
-        <Button variant="contained" onClick={() => console.log("signup....")}>
+        <Button variant="contained" onClick={() => console.log('signup....')}>
           Sign Up
         </Button>
       </div>
