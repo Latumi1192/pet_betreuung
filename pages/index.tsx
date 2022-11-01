@@ -1,4 +1,4 @@
-import PageBar from '../components/PageBar';
+import PageBar from "../components/PageBar";
 
 const Home = () => {
   return <PageBar />;

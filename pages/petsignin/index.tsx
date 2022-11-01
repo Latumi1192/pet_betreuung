@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import SignUpForm from "../../features/user/presentation/components/SignUpForm";
+import PetSignUpForm from "../../features/user/presentation/components/PetSignUpForm";
 
-const SignUpPage = () => {
+const PetSignInPage = () => {
   return (
     <Grid
       container
@@ -13,10 +13,10 @@ const SignUpPage = () => {
       style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
-        <SignUpForm />
+        <PetSignUpForm />
       </Grid>
     </Grid>
   );
 };
 
-export default SignUpPage;
+export default PetSignInPage;
