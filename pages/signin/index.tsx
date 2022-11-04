@@ -1,6 +1,6 @@
-import { Grid } from '@mui/material';
-import React from 'react';
-import SignInForm from '../../features/user/presentation/components/SignInForm';
+import { Grid } from "@mui/material";
+import React from "react";
+import SignInForm from "../../features/user/presentation/components/SignInForm";
 
 const SignInPage = () => {
   return (
@@ -10,7 +10,7 @@ const SignInPage = () => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
         <SignInForm />
