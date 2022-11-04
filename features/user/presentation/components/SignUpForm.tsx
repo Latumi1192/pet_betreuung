@@ -3,8 +3,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { FormGroup, Checkbox, FormControlLabel, Button } from '@mui/material';
 import GenderButton from './GenderButton';
+import { useRouter } from 'next/router';
 
 export default function SignUpForm() {
+  const router = useRouter();
   return (
     <Box
       component="form"
@@ -125,7 +127,7 @@ export default function SignUpForm() {
         />
       </FormGroup>
       <div>
-        <Button variant="contained" onClick={() => console.log('signup....')}>
+        <Button variant="contained" onClick={() => router.push("petsignin")}>
           Sign Up
         </Button>
       </div>
