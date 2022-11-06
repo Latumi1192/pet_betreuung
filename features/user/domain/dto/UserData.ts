@@ -1,3 +1,5 @@
+import { PetData } from "./PetData";
+
 export type UserData = {
   firstname: string;
   lastname: string;
@@ -12,4 +14,5 @@ export type UserData = {
   email: string;
   profilepicture: string;
   uid: number;
+  pet: PetData[];
 } | null;
