@@ -24,7 +24,7 @@ export class UserRepositoryImpl implements UserRepository {
   private isValidAccount(user: UserData): boolean {
     if (user == null) throw new Error("Check parameter");
     for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i]?.account == user.account) return false;
+      if (this.userDB[i].account == user.account) return false;
     }
     return true;
   }
@@ -32,7 +32,7 @@ export class UserRepositoryImpl implements UserRepository {
   private isValidEmail(user: UserData): boolean {
     if (user == null) throw new Error("Check parameter");
     for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i]?.email == user.email) return false;
+      if (this.userDB[i].email == user.email) return false;
     }
     return true;
   }
@@ -47,17 +47,17 @@ export class UserRepositoryImpl implements UserRepository {
   // }
 
   getUser(uid: number): UserData {
-    let tmpUser: UserData = null;
+    let tmpUser;
     for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i]?.uid == uid) tmpUser = this.userDB[i];
+      if (this.userDB[i].uid == uid) tmpUser = this.userDB[i];
     }
-    return tmpUser;
+    return tmpUser as UserData;
   }
 
   deleteUser(user: UserData): boolean {
     if (user == null) throw new Error("Check parameter");
     for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i]?.uid == user.uid) {
+      if (this.userDB[i].uid == user.uid) {
         this.userDB.splice(i, 1);
         return true;
       }

@@ -15,4 +15,4 @@ export type UserData = {
   profilepicture: string;
   uid: number;
   pet: PetData[];
-} | null;
+};
