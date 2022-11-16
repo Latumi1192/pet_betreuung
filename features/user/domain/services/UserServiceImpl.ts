@@ -1,55 +1,53 @@
+import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
 import { PetData } from "../dto/PetData";
 import { UserData } from "../dto/UserData";
 import { UserService } from "./UserService";
 
 export class UserServiceImpl implements UserService {
-  createUserData(
-    firstname: string,
-    lastname: string,
-    addresse: string,
-    zipcode: number,
-    city: string,
-    country: string,
-    telephone: number,
-    gender: string,
-    account: string,
-    password: string,
-    email: string,
-    profilepicture: string
-  ): UserData {
-    const userData: UserData = {
-      firstname: firstname,
-      lastname: lastname,
-      addresse: addresse,
-      zipcode: zipcode,
-      city: city,
-      country: country,
-      telephone: telephone,
-      gender: gender,
-      account: account,
-      password: password,
-      email: email,
-      profilepicture: profilepicture,
-      uid: 0,
-      pet: [],
-    };
-    return userData;
+  userRepo = new UserRepositoryImpl();
+  createUserData(form: any) {
+    var success = false;
+    const emailRe = new RegExp(
+      "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+    );
+    if (
+      form.password == form.passwordagain &&
+      form.firstname != "" &&
+      form.lastname != "" &&
+      form.addresse != "" &&
+      form.zipcode != 0 &&
+      form.city != "" &&
+      form.country != "" &&
+      form.account != "" &&
+      form.password != "" &&
+      form.email != "" &&
+      emailRe.test(form.email)
+    ) {
+      const userData: UserData = {
+        firstname: form.firstname,
+        lastname: form.lastname,
+        addresse: form.addresse,
+        zipcode: form.zipcode,
+        city: form.city,
+        country: form.country,
+        telephone: form.telephone,
+        gender: form.gender,
+        account: form.account,
+        password: form.password,
+        email: form.email,
+        profilepicture: form.profilepicture,
+        uid: 0,
+        pet: [],
+      };
+      console.log(userData);
+      this.userRepo.addUser(userData) ? (success = true) : (success = false);
+    }
+    return success;
   }
-  createPetData(
-    kind: string,
-    race: string,
-    petpicture: string,
-    petdocu: string,
-    about: string
-  ): PetData {
-    const petData: PetData = {
-      kind: kind,
-      race: race,
-      petpicture: petpicture,
-      petdocu: petdocu,
-      about: about,
-      uid: 0,
-    };
-    return petData;
+
+  createPetData(form: any) {
+    var success = false;
+
+    return success;
   }
 }

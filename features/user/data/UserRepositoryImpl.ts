@@ -10,6 +10,7 @@ export class UserRepositoryImpl implements UserRepository {
     if (this.isValidAccount(user) && this.isValidEmail(user)) {
       user.uid = this.generateID();
       this.userDB.push(user);
+      console.log(this.userDB);
       return true;
     } else return false;
   }
