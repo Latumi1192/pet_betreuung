@@ -1,29 +1,29 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { FormGroup, Checkbox, FormControlLabel, Button } from "@mui/material";
-import GenderButton from "./GenderButton";
-import { useRouter } from "next/router";
-import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { FormGroup, Checkbox, FormControlLabel, Button } from '@mui/material';
+import GenderButton from './GenderButton';
+import { useRouter } from 'next/router';
+import { UserServiceImpl } from '../../domain/services/UserServiceImpl';
 
 export default function SignUpForm() {
   const router = useRouter();
   const userServ = new UserServiceImpl();
 
   const [form, setForm] = React.useState({
-    firstname: "",
-    lastname: "",
-    addresse: "",
+    firstname: '',
+    lastname: '',
+    addresse: '',
     zipcode: 0,
-    city: "",
-    country: "",
+    city: '',
+    country: '',
     telephone: 0,
-    gender: "",
-    account: "",
-    password: "",
-    passwordagain: "",
-    email: "",
-    profilepicture: "",
+    gender: '',
+    account: '',
+    password: '',
+    passwordagain: '',
+    email: '',
+    profilepicture: '',
   });
 
   const handleChange = (event: { target: { name: any; value: any; }; }) => {
@@ -39,12 +39,12 @@ export default function SignUpForm() {
       component="form"
       sx={{
         border: 3,
-        borderColor: "primary.main",
-        borderRadius: "16px",
-        "& .MuiTextField-root": { m: 2, width: "25ch" },
-        "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
-        "& .MuiFormGroup-root": { mt: 0, ml: 1 },
-        "& .MuiFormControlLabel-root": { m: 0 },
+        borderColor: 'primary.main',
+        borderRadius: '16px',
+        '& .MuiTextField-root': { m: 2, width: '25ch' },
+        '& .MuiButton-root': { mt: 1, ml: 2, mb: 1 },
+        '& .MuiFormGroup-root': { mt: 0, ml: 1 },
+        '& .MuiFormControlLabel-root': { m: 0 },
       }}
       noValidate
       autoComplete="off"

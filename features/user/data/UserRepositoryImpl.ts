@@ -1,29 +1,31 @@
-import { PetData } from "../domain/dto/PetData";
-import { UserData } from "../domain/dto/UserData";
-import { UserRepository } from "./UserRepository";
+import { PetData } from '../domain/dto/PetData';
+import { UserData } from '../domain/dto/UserData';
+import { UserRepository } from './UserRepository';
 
 export class UserRepositoryImpl implements UserRepository {
   userDB: UserData[] = [];
 
   addUser(user: UserData): boolean {
-    if (user == null) throw new Error("Check parameter");
+    if (user == null) throw new Error('Check parameter');
     if (this.isValidAccount(user) && this.isValidEmail(user)) {
       user.uid = this.generateID();
+      // TODO get data from localStorage
       this.userDB.push(user);
+      localStorage.setItem('userDB', JSON.stringify(this.userDB));
       console.log(this.userDB);
       return true;
     } else return false;
   }
 
   addPet(pet: PetData, user: UserData): boolean {
-    if (pet == null || user == null) throw new Error("Check parameter");
+    if (pet == null || user == null) throw new Error('Check parameter');
     pet.uid = user.uid;
     user.pet.push(pet);
     return true;
   }
 
   private isValidAccount(user: UserData): boolean {
-    if (user == null) throw new Error("Check parameter");
+    if (user == null) throw new Error('Check parameter');
     for (var i = 0; i < this.userDB.length; i++) {
       if (this.userDB[i].account == user.account) return false;
     }
@@ -31,7 +33,7 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   private isValidEmail(user: UserData): boolean {
-    if (user == null) throw new Error("Check parameter");
+    if (user == null) throw new Error('Check parameter');
     for (var i = 0; i < this.userDB.length; i++) {
       if (this.userDB[i].email == user.email) return false;
     }
@@ -56,7 +58,7 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   deleteUser(user: UserData): boolean {
-    if (user == null) throw new Error("Check parameter");
+    if (user == null) throw new Error('Check parameter');
     for (var i = 0; i < this.userDB.length; i++) {
       if (this.userDB[i].uid == user.uid) {
         this.userDB.splice(i, 1);
