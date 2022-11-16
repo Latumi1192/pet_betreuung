@@ -26,7 +26,7 @@ export default function SignUpForm() {
     profilepicture: "",
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event: { target: { name: any; value: any; }; }) => {
     // use spread operator
     setForm({
       ...form,
@@ -189,7 +189,7 @@ export default function SignUpForm() {
           onClick={() => {
             userServ.createUserData(form)
               ? router.push("petsignin")
-              : router.push("signupfail");
+              : router.push({ pathname: "signupfail", query: form},"signupfail");
           }}
         >
           Sign Up

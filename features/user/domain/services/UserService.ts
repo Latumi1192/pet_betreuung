@@ -5,5 +5,5 @@ export interface UserService {
   
   createUserData(form: any): boolean;
   createPetData(form: any): boolean;
-    
+  signupWarning(form: any): String;
 }
