@@ -6,6 +6,11 @@ import { UserService } from "./UserService";
 export class UserServiceImpl implements UserService {
   userRepo = new UserRepositoryImpl();
   emailRe = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$");
+
+  isRegistered(form: any): boolean {
+    return this.userRepo.isRegistered(form.account, form.password);
+  }
+
   createUserData(form: any) {
     var success = false;
     if (

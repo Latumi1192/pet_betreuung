@@ -4,9 +4,26 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormControlLabel, Checkbox, Typography } from "@mui/material";
 import { useRouter } from "next/router";
+import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 
 export default function SignInForm() {
+  const userServ = new UserServiceImpl();
   const router = useRouter();
+
+  const [form, setForm] = React.useState({
+    account: "",
+    password: "",
+  });
+
+  const handleChange = (event: { target: { name: any; value: any } }) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const [isRegistered, setRegistered] = React.useState(true);
+
   return (
     <Box
       component="form"
@@ -24,18 +41,25 @@ export default function SignInForm() {
       noValidate
       autoComplete="off"
     >
+      <div>{!isRegistered && <div>Check input again!!!!</div>}</div>
       <div>
         <TextField
           focused
           required
           id="outlined-required"
           label="Account"
+          name="account"
+          value={form.account}
+          onChange={handleChange}
           placeholder="Enter your Account"
         />
         <TextField
           focused
           id="outlined-password-input"
           label="Password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
           type="password"
           placeholder="Enter your Password"
         />
@@ -48,7 +72,10 @@ export default function SignInForm() {
         <Button
           variant="contained"
           onClick={() => {
-            alert("clicked");
+            userServ.isRegistered(form)
+              ? router.push("/")
+              : setRegistered(false);
+            console.log(isRegistered);
           }}
         >
           Sign In

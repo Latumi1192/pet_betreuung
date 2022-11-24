@@ -1,31 +1,62 @@
-import { PetData } from '../domain/dto/PetData';
-import { UserData } from '../domain/dto/UserData';
-import { UserRepository } from './UserRepository';
+import { PetData } from "../domain/dto/PetData";
+import { UserData } from "../domain/dto/UserData";
+import { UserRepository } from "./UserRepository";
 
 export class UserRepositoryImpl implements UserRepository {
   userDB: UserData[] = [];
 
+  constructor() {
+    if (localStorage.getItem("userDB") === null) {
+      localStorage.setItem("userDB", JSON.stringify(this.userDB));
+    }
+  }
+
+  getUserDB(): UserData[] {
+    return JSON.parse(localStorage.getItem("userDB") || "");
+  }
+
+  isRegistered(account: string, password: string): boolean {
+    if (account == null || password == null || account == "" || password == "")
+      throw new Error("Check parameter");
+
+    this.userDB = this.getUserDB();
+
+    for (var i = 0; i < this.userDB.length; i++) {
+      if (
+        this.userDB[i].account == account &&
+        this.userDB[i].password == password
+      )
+        return true;
+    }
+    return false;
+  }
+
   addUser(user: UserData): boolean {
-    if (user == null) throw new Error('Check parameter');
+    if (user == null) throw new Error("Check parameter");
+
     if (this.isValidAccount(user) && this.isValidEmail(user)) {
       user.uid = this.generateID();
-      // TODO get data from localStorage
+      this.userDB = this.getUserDB();
       this.userDB.push(user);
-      localStorage.setItem('userDB', JSON.stringify(this.userDB));
+      localStorage.setItem("userDB", JSON.stringify(this.userDB));
       console.log(this.userDB);
       return true;
     } else return false;
   }
 
   addPet(pet: PetData, user: UserData): boolean {
-    if (pet == null || user == null) throw new Error('Check parameter');
+    if (pet == null || user == null) throw new Error("Check parameter");
+
     pet.uid = user.uid;
     user.pet.push(pet);
     return true;
   }
 
   private isValidAccount(user: UserData): boolean {
-    if (user == null) throw new Error('Check parameter');
+    if (user == null) throw new Error("Check parameter");
+
+    this.userDB = this.getUserDB();
+
     for (var i = 0; i < this.userDB.length; i++) {
       if (this.userDB[i].account == user.account) return false;
     }
@@ -33,7 +64,10 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   private isValidEmail(user: UserData): boolean {
-    if (user == null) throw new Error('Check parameter');
+    if (user == null) throw new Error("Check parameter");
+
+    this.userDB = this.getUserDB();
+
     for (var i = 0; i < this.userDB.length; i++) {
       if (this.userDB[i].email == user.email) return false;
     }
@@ -51,6 +85,9 @@ export class UserRepositoryImpl implements UserRepository {
 
   getUser(uid: number): UserData {
     let tmpUser;
+
+    this.userDB = this.getUserDB();
+
     for (var i = 0; i < this.userDB.length; i++) {
       if (this.userDB[i].uid == uid) tmpUser = this.userDB[i];
     }
@@ -58,10 +95,14 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   deleteUser(user: UserData): boolean {
-    if (user == null) throw new Error('Check parameter');
+    if (user == null) throw new Error("Check parameter");
+
+    this.userDB = this.getUserDB();
+
     for (var i = 0; i < this.userDB.length; i++) {
       if (this.userDB[i].uid == user.uid) {
         this.userDB.splice(i, 1);
+        localStorage.setItem("userDB", JSON.stringify(this.userDB));
         return true;
       }
     }

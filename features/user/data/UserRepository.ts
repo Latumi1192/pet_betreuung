@@ -9,4 +9,5 @@ export interface UserRepository {
   getUser(uid: number): UserData;
   deleteUser(user: UserData): boolean;
   generateID(): number;
+  isRegistered(account:string,password:string):boolean;
 }
