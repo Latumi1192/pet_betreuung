@@ -5,12 +5,6 @@ import { UserRepository } from "./UserRepository";
 export class UserRepositoryImpl implements UserRepository {
   userDB: UserData[] = [];
 
-  constructor() {
-    if (localStorage.getItem("userDB") === null) {
-      localStorage.setItem("userDB", JSON.stringify(this.userDB));
-    }
-  }
-
   getUserDB(): UserData[] {
     return JSON.parse(localStorage.getItem("userDB") || "");
   }
