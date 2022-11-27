@@ -11,6 +11,10 @@ export class UserServiceImpl implements UserService {
     return this.userRepo.isRegistered(form.account, form.password);
   }
 
+  recoverPassword(email: string): string {
+    return this.userRepo.findPassword(email);
+  }
+
   createUserData(form: any) {
     var success = false;
     if (

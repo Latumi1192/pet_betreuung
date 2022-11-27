@@ -29,7 +29,7 @@ export default function SignInForm() {
       component="form"
       sx={{
         width: 220,
-        height: 380,
+        height: isRegistered ? 360 : 400,
         border: 3,
         borderColor: "primary.main",
         borderRadius: "16px",
@@ -41,7 +41,9 @@ export default function SignInForm() {
       noValidate
       autoComplete="off"
     >
-      <div>{!isRegistered && <div>Check input again!!!!</div>}</div>
+      <div>
+        {!isRegistered && <Typography>Check input again!!!!</Typography>}
+      </div>
       <div>
         <TextField
           focused
@@ -72,17 +74,20 @@ export default function SignInForm() {
         <Button
           variant="contained"
           onClick={() => {
-            userServ.isRegistered(form)
-              ? router.push("/")
-              : setRegistered(false);
-            console.log(isRegistered);
+            if (form.account == "" || form.password == "") setRegistered(false);
+            else {
+              userServ.isRegistered(form)
+                ? router.push("/")
+                : setRegistered(false);
+              console.log(isRegistered);
+            }
           }}
         >
           Sign In
         </Button>
       </div>
       <Typography>
-        <a href="/password_recover">Forgot Password</a>
+        <a href="/passwordrecover">Forgot Password</a>
       </Typography>
       <Typography>---------OR---------</Typography>
       <div>

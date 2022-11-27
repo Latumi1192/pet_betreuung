@@ -7,4 +7,5 @@ export interface UserService {
   createPetData(form: any): boolean;
   signupWarning(form: any): String;
   isRegistered(form: any): boolean;
+  recoverPassword(email:string): string;
 }

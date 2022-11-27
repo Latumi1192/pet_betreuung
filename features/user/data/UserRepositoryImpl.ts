@@ -4,9 +4,27 @@ import { UserRepository } from "./UserRepository";
 
 export class UserRepositoryImpl implements UserRepository {
   userDB: UserData[] = [];
+  emptyDB: UserData[] = [];
 
   getUserDB(): UserData[] {
     return JSON.parse(localStorage.getItem("userDB") || "");
+  }
+
+  findPassword(email: string): string {
+    if (email == null) throw new Error("Check parameter");
+
+    this.userDB = this.getUserDB();
+
+    let password = "";
+
+    for (var i = 0; i < this.userDB.length; i++) {
+      if (this.userDB[i].email == email) password = this.userDB[i].password;
+    }
+    return password;
+  }
+
+  resetDB() {
+    localStorage.setItem("userDB", JSON.stringify(this.emptyDB));
   }
 
   isRegistered(account: string, password: string): boolean {
