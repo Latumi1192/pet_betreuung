@@ -1,7 +1,13 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { FormGroup, Checkbox, FormControlLabel, Button } from "@mui/material";
+import {
+  FormGroup,
+  Checkbox,
+  FormControlLabel,
+  Button,
+  Typography,
+} from "@mui/material";
 import GenderButton from "./GenderButton";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
@@ -9,6 +15,9 @@ import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 export default function SignUpForm() {
   const router = useRouter();
   const userServ = new UserServiceImpl();
+
+  const [valid, setValid] = React.useState(true);
+  const [warning, setWarning] = React.useState("");
 
   const [form, setForm] = React.useState({
     firstname: "",
@@ -27,7 +36,6 @@ export default function SignUpForm() {
   });
 
   const handleChange = (event: { target: { name: any; value: any } }) => {
-    // use spread operator
     setForm({
       ...form,
       [event.target.name]: event.target.value,
@@ -45,10 +53,16 @@ export default function SignUpForm() {
         "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
         "& .MuiFormGroup-root": { mt: 0, ml: 1 },
         "& .MuiFormControlLabel-root": { m: 0 },
+        "& .MuiTypography-root": { ml: 2, mt: 1 },
       }}
       noValidate
       autoComplete="off"
     >
+      {!valid && (
+        <div>
+          <Typography>{warning}</Typography>
+        </div>
+      )}
       <div>
         <TextField
           focused
@@ -187,8 +201,13 @@ export default function SignUpForm() {
         <Button
           variant="contained"
           onClick={() => {
-            userServ.createUserData(form);
-            router.push("petsignin");
+            if (userServ.signupWarning(form) != "") {
+              setWarning(userServ.signupWarning(form));
+              setValid(false);
+            } else {
+              userServ.createUserData(form);
+              router.push("petsignin");
+            }
           }}
         >
           Sign Up

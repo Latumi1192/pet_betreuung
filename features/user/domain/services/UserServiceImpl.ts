@@ -6,6 +6,8 @@ import { UserService } from "./UserService";
 export class UserServiceImpl implements UserService {
   userRepo = new UserRepositoryImpl();
   emailRe = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$");
+  accountRe = new RegExp("^[\\w.-]{7,19}[0-9a-zA-Z]$");
+  passwordRe = new RegExp("^^[\\w.-]{7,19}[0-9a-zA-Z]$");
 
   isRegistered(form: any): boolean {
     return this.userRepo.isRegistered(form.account, form.password);
@@ -52,49 +54,39 @@ export class UserServiceImpl implements UserService {
     return success;
   }
 
-  signupWarning(form: any): String {
-    var warning = "";
-    switch (form) {
+  signupWarning(form: any): string {
+    switch (true) {
+      case this.accountRe.test(form.account) == false:
+        return "Account must have 8 character";
+      case this.passwordRe.test(form.password) == false:
+        return "Password must have 8 character";
       case form.password != form.passwordagain:
-        warning = "Password is not identical";
-        break;
+        return "Password is not identical";
       case form.firstname == "":
-        warning = "Missing first name";
-        break;
+        return "Missing first name";
       case form.lastname == "":
-        warning = warning = "Missing last name";
-        break;
+        return "Missing last name";
       case form.addresse == "":
-        warning = "Missing addresse";
-        break;
+        return "Missing addresse";
       case form.zipcode == 0:
-        warning = "Missing zipcode";
-        break;
+        return "Missing zipcode";
       case form.city == "":
-        warning = "Missing city";
-        break;
+        return "Missing city";
       case form.country == "":
-        warning = "Missing country";
-        break;
+        return "Missing country";
       case form.account == "":
-        warning = "Missing account";
-        break;
+        return "Missing account";
       case form.password == "":
-        warning = "Missing password";
-        break;
+        return "Missing password";
       case form.passwordagain == "":
-        warning = "Missing password again ";
-        break;
-      case form.email != "":
-        warning = "Missing email";
-        break;
+        return "Missing password again ";
+      case form.email == "":
+        return "Missing email";
       case this.emailRe.test(form.email) == false:
-        warning = "Email is invalid";
-        break;
+        return "Email is invalid";
       default:
-        break;
+        return "";
     }
-    return warning;
   }
 
   createPetData(form: any) {
