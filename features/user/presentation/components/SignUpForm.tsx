@@ -7,14 +7,18 @@ import {
   FormControlLabel,
   Button,
   Typography,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import GenderButton from "./GenderButton";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
+import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
 
 export default function SignUpForm() {
   const router = useRouter();
   const userServ = new UserServiceImpl();
+  const userRepo = new UserRepositoryImpl();
 
   const [valid, setValid] = React.useState(true);
   const [warning, setWarning] = React.useState("");
@@ -46,6 +50,7 @@ export default function SignUpForm() {
     <Box
       component="form"
       sx={{
+        width: 550,
         border: 3,
         borderColor: "primary.main",
         borderRadius: "16px",
@@ -53,14 +58,21 @@ export default function SignUpForm() {
         "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
         "& .MuiFormGroup-root": { mt: 0, ml: 1 },
         "& .MuiFormControlLabel-root": { m: 0 },
-        "& .MuiTypography-root": { ml: 2, mt: 1 },
       }}
       noValidate
       autoComplete="off"
     >
       {!valid && (
         <div>
-          <Typography>{warning}</Typography>
+          <Alert
+            severity="error"
+            sx={{
+              borderRadius: "16px 16px 0px 0px",
+            }}
+          >
+            <AlertTitle>Error</AlertTitle>
+            <strong>{warning}</strong>
+          </Alert>
         </div>
       )}
       <div>
@@ -133,7 +145,12 @@ export default function SignUpForm() {
       <div>
         <GenderButton />
       </div>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <TextField
           focused
           required
@@ -144,8 +161,14 @@ export default function SignUpForm() {
           onChange={handleChange}
           placeholder="Account"
         />
+        <Typography>*Must have 8-20 characters </Typography>
       </div>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <TextField
           focused
           required
@@ -156,6 +179,7 @@ export default function SignUpForm() {
           onChange={handleChange}
           placeholder="Password"
         />
+        <Typography>*Must have 8-20 characters </Typography>
       </div>
       <div>
         <TextField
@@ -205,13 +229,24 @@ export default function SignUpForm() {
               setWarning(userServ.signupWarning(form));
               setValid(false);
             } else {
-              userServ.createUserData(form);
-              router.push("petsignin");
+              if (userServ.createUserData(form)) router.push("petsignin");
+              else {
+                setWarning("Account or email is being used");
+                setValid(false);
+              }
             }
           }}
         >
           Sign Up
         </Button>
+        {/* <Button
+          variant="contained"
+          onClick={() => {
+            userRepo.resetDB();
+          }}
+        >
+          Clear DB
+        </Button> */}
       </div>
     </Box>
   );

@@ -2,7 +2,13 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { FormControlLabel, Checkbox, Typography } from "@mui/material";
+import {
+  FormControlLabel,
+  Checkbox,
+  Typography,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 
@@ -29,20 +35,31 @@ export default function SignInForm() {
       component="form"
       sx={{
         width: 220,
-        height: isRegistered ? 360 : 400,
         border: 3,
         borderColor: "primary.main",
         borderRadius: "16px",
         "& .MuiTextField-root": { mt: 3, ml: 1, width: "25ch" },
         "& .MuiFormControlLabel-root": { m: 0.1, width: "25ch" },
-        "& .MuiButton-root": { ml: 1 },
+        "& .MuiButton-root": { ml: 1, mb: 2 },
         "& .MuiTypography-root": { m: 1 },
       }}
       noValidate
       autoComplete="off"
     >
       <div>
-        {!isRegistered && <Typography>Check input again!!!!</Typography>}
+        {!isRegistered && (
+          <div>
+            <Alert
+              severity="error"
+              sx={{
+                borderRadius: "16px 16px 0px 0px",
+              }}
+            >
+              <AlertTitle>Error</AlertTitle>
+              <strong>Check input again!!!</strong>
+            </Alert>
+          </div>
+        )}
       </div>
       <div>
         <TextField

@@ -1,10 +1,9 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Alert, AlertTitle } from "@mui/material";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
-import { Password } from "@mui/icons-material";
 
 export default function PasswordRecovery() {
   const router = useRouter();
@@ -26,14 +25,26 @@ export default function PasswordRecovery() {
         borderRadius: "16px",
         "& .MuiTextField-root": { m: 2, width: "25ch" },
         "& .MuiButton-root": { mt: 1, ml: 2, mb: 1, mr: 2 },
-        "& .MuiTypography-root": { m: 2 },
+        "& .MuiTypography-root": { ml: 2, mt: 1 },
       }}
       noValidate
       autoComplete="off"
     >
       {!isFound && (
         <div>
-          {notFound && <Typography>Check your Email again</Typography>}
+          {notFound && (
+            <div>
+              <Alert
+                severity="error"
+                sx={{
+                  borderRadius: "16px 16px 0px 0px",
+                }}
+              >
+                <AlertTitle>Error</AlertTitle>
+                <strong>Check your Email again!!!</strong>
+              </Alert>
+            </div>
+          )}
           <div>
             <TextField
               focused
@@ -63,7 +74,15 @@ export default function PasswordRecovery() {
       )}
       {isFound && (
         <div>
-          <Typography>Your password is: {password}</Typography>
+          <Alert
+            severity="success"
+            sx={{
+              borderRadius: "16px 16px 0px 0px",
+            }}
+          >
+            <AlertTitle>Success</AlertTitle>
+          </Alert>
+          <Typography> Your password is: {password}</Typography>
           <Button
             variant="contained"
             onClick={() => {

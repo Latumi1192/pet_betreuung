@@ -17,7 +17,7 @@ export class UserServiceImpl implements UserService {
     return this.userRepo.findPassword(email);
   }
 
-  createUserData(form: any) {
+  createUserData(form: any): boolean {
     var success = false;
     if (
       form.password == form.passwordagain &&
@@ -56,12 +56,6 @@ export class UserServiceImpl implements UserService {
 
   signupWarning(form: any): string {
     switch (true) {
-      case this.accountRe.test(form.account) == false:
-        return "Account must have 8 character";
-      case this.passwordRe.test(form.password) == false:
-        return "Password must have 8 character";
-      case form.password != form.passwordagain:
-        return "Password is not identical";
       case form.firstname == "":
         return "Missing first name";
       case form.lastname == "":
@@ -76,10 +70,16 @@ export class UserServiceImpl implements UserService {
         return "Missing country";
       case form.account == "":
         return "Missing account";
+      case this.accountRe.test(form.account) == false:
+        return "Account must have 8-20 character";
       case form.password == "":
         return "Missing password";
+      case this.passwordRe.test(form.password) == false:
+        return "Password must have 8-20 character";
       case form.passwordagain == "":
         return "Missing password again ";
+      case form.password != form.passwordagain:
+        return "Password is not identical";
       case form.email == "":
         return "Missing email";
       case this.emailRe.test(form.email) == false:
