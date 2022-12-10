@@ -204,6 +204,16 @@ export default function SignUpForm() {
           onChange={handleChange}
           placeholder="abc@xy.z"
         />
+        <TextField
+          focused
+          required
+          id="outlined-required"
+          label="Telephone"
+          name="telephone"
+          value={form.telephone}
+          onChange={handleChange}
+          placeholder="0123456789"
+        />
       </div>
       <div>
         <Button variant="outlined" component="label">
@@ -247,6 +257,16 @@ export default function SignUpForm() {
         >
           Clear DB
         </Button> */}
+        {
+          <Button
+            variant="contained"
+            onClick={() => {
+              userRepo.printDB();
+            }}
+          >
+            Show DB
+          </Button>
+        }
       </div>
     </Box>
   );

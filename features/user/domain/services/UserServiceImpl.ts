@@ -30,6 +30,7 @@ export class UserServiceImpl implements UserService {
       form.account != "" &&
       form.password != "" &&
       form.email != "" &&
+      form.telephone != 0 &&
       this.emailRe.test(form.email)
     ) {
       const userData: UserData = {
@@ -56,34 +57,36 @@ export class UserServiceImpl implements UserService {
 
   signupWarning(form: any): string {
     switch (true) {
-      case form.firstname == "":
+      case form.firstname === "":
         return "Missing first name";
-      case form.lastname == "":
+      case form.lastname === "":
         return "Missing last name";
-      case form.addresse == "":
+      case form.addresse === "":
         return "Missing addresse";
-      case form.zipcode == 0:
+      case form.zipcode === 0:
         return "Missing zipcode";
-      case form.city == "":
+      case form.city === "":
         return "Missing city";
-      case form.country == "":
+      case form.country === "":
         return "Missing country";
-      case form.account == "":
+      case form.account === "":
         return "Missing account";
       case this.accountRe.test(form.account) == false:
         return "Account must have 8-20 character";
-      case form.password == "":
+      case form.password === "":
         return "Missing password";
       case this.passwordRe.test(form.password) == false:
         return "Password must have 8-20 character";
-      case form.passwordagain == "":
+      case form.passwordagain === "":
         return "Missing password again ";
       case form.password != form.passwordagain:
         return "Password is not identical";
-      case form.email == "":
+      case form.email === "":
         return "Missing email";
-      case this.emailRe.test(form.email) == false:
+      case this.emailRe.test(form.email) === false:
         return "Email is invalid";
+      case form.telephone === 0:
+        return "Missing telephone";
       default:
         return "";
     }

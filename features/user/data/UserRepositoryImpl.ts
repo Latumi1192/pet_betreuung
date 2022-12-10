@@ -7,36 +7,52 @@ export class UserRepositoryImpl implements UserRepository {
   emptyDB: UserData[] = [];
 
   getUserDB(): UserData[] {
-    return JSON.parse(localStorage.getItem("userDB") || "");
+    try {
+      return JSON.parse(localStorage.getItem("userDB") || "");
+    } catch (e) {
+      return this.emptyDB;
+    }
   }
 
   findPassword(email: string): string {
-    if (email == null) throw new Error("Check parameter");
+    if (email === null) throw new Error("Check parameter");
 
     this.userDB = this.getUserDB();
 
     let password = "";
 
-    for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i].email == email) password = this.userDB[i].password;
+    for (let i = 0; i < this.userDB.length; i++) {
+      if (this.userDB[i].email === email) password = this.userDB[i].password;
     }
     return password;
   }
 
+  //Will delete later
   resetDB() {
     localStorage.setItem("userDB", JSON.stringify(this.emptyDB));
   }
 
+  //Will delete later
+  printDB() {
+    this.userDB = this.getUserDB();
+    console.log(this.userDB);
+  }
+
   isRegistered(account: string, password: string): boolean {
-    if (account == null || password == null || account == "" || password == "")
+    if (
+      account === null ||
+      password === null ||
+      account === "" ||
+      password === ""
+    )
       throw new Error("Check parameter");
 
     this.userDB = this.getUserDB();
 
-    for (var i = 0; i < this.userDB.length; i++) {
+    for (let i = 0; i < this.userDB.length; i++) {
       if (
-        this.userDB[i].account == account &&
-        this.userDB[i].password == password
+        this.userDB[i].account === account &&
+        this.userDB[i].password === password
       )
         return true;
     }
@@ -57,7 +73,7 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   addPet(pet: PetData, user: UserData): boolean {
-    if (pet == null || user == null) throw new Error("Check parameter");
+    if (pet === null || user === null) throw new Error("Check parameter");
 
     pet.uid = user.uid;
     user.pet.push(pet);
@@ -65,43 +81,34 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   private isValidAccount(user: UserData): boolean {
-    if (user == null) throw new Error("Check parameter");
+    if (user === null) throw new Error("Check parameter");
 
     this.userDB = this.getUserDB();
 
-    for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i].account == user.account) return false;
+    for (let i = 0; i < this.userDB.length; i++) {
+      if (this.userDB[i].account === user.account) return false;
     }
     return true;
   }
 
   private isValidEmail(user: UserData): boolean {
-    if (user == null) throw new Error("Check parameter");
+    if (user === null) throw new Error("Check parameter");
 
     this.userDB = this.getUserDB();
 
-    for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i].email == user.email) return false;
+    for (let i = 0; i < this.userDB.length; i++) {
+      if (this.userDB[i].email === user.email) return false;
     }
     return true;
   }
 
-  // getPassword(account: string): string {
-  //   let tmppassword;
-  //   for (var i = 0; i < this.userDB.length; i++) {
-  //     if (this.userDB[i]?.account == account)
-  //       tmppassword = this.userDB[i]?.password;
-  //   }
-  //   return tmppassword == null ? "" : tmppassword;
-  // }
-
-  getUser(uid: number): UserData {
+  getUserFromID(uid: number): UserData {
     let tmpUser;
 
     this.userDB = this.getUserDB();
 
-    for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i].uid == uid) tmpUser = this.userDB[i];
+    for (let i = 0; i < this.userDB.length; i++) {
+      if (this.userDB[i].uid === uid) tmpUser = this.userDB[i];
     }
     return tmpUser as UserData;
   }
@@ -111,8 +118,8 @@ export class UserRepositoryImpl implements UserRepository {
 
     this.userDB = this.getUserDB();
 
-    for (var i = 0; i < this.userDB.length; i++) {
-      if (this.userDB[i].uid == user.uid) {
+    for (let i = 0; i < this.userDB.length; i++) {
+      if (this.userDB[i].uid === user.uid) {
         this.userDB.splice(i, 1);
         localStorage.setItem("userDB", JSON.stringify(this.userDB));
         return true;
