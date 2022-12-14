@@ -1,8 +1,8 @@
 import LandingPage from "../features/user/presentation/components/LandingPage";
-import ProfilePage from "../features/user/presentation/components/ProfilePage";
+import UserProfile from "../features/user/presentation/components/UserProfile";
 
 const Home = () => {
-  return <ProfilePage />;
+  return <UserProfile />;
 };
 
 export default Home;

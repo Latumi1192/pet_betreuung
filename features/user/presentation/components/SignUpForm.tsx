@@ -14,6 +14,8 @@ import GenderButton from "./GenderButton";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
+import { UserData } from "../../domain/dto/UserData";
+import { PetData } from "../../domain/dto/PetData";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -23,7 +25,7 @@ export default function SignUpForm() {
   const [valid, setValid] = React.useState(true);
   const [warning, setWarning] = React.useState("");
 
-  const [form, setForm] = React.useState({
+  const [userData, setUserData] = React.useState<UserData>({
     firstname: "",
     lastname: "",
     addresse: "",
@@ -34,16 +36,22 @@ export default function SignUpForm() {
     gender: "",
     account: "",
     password: "",
-    passwordagain: "",
     email: "",
     profilepicture: "",
+    uid: 0,
+    pet: new Array<PetData>(),
   });
 
   const handleChange = (event: { target: { name: any; value: any } }) => {
-    setForm({
-      ...form,
+    setUserData({
+      ...userData,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const [passwordagain, setPasswordAgain] = React.useState("");
+  const handlePassword = (event: { target: { name: any; value: any } }) => {
+    setPasswordAgain(event.target.value);
   };
 
   return (
@@ -82,7 +90,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="First Name"
           name="firstname"
-          value={form.firstname}
+          value={userData?.firstname}
           onChange={handleChange}
           placeholder="Enter your first name"
         />
@@ -92,7 +100,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Last Name"
           name="lastname"
-          value={form.lastname}
+          value={userData?.lastname}
           onChange={handleChange}
           placeholder="Enter your last name"
         />
@@ -104,7 +112,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Addresse"
           name="addresse"
-          value={form.addresse}
+          value={userData?.addresse}
           onChange={handleChange}
           placeholder="Enter your addresse"
         />
@@ -114,7 +122,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="ZIP Code"
           name="zipcode"
-          value={form.zipcode}
+          value={userData?.zipcode}
           onChange={handleChange}
           placeholder="12345"
         />
@@ -126,7 +134,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="City"
           name="city"
-          value={form.city}
+          value={userData?.city}
           onChange={handleChange}
           placeholder="Hamburg"
         />
@@ -136,7 +144,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Country"
           name="country"
-          value={form.country}
+          value={userData?.country}
           onChange={handleChange}
           placeholder="Germany"
         />
@@ -157,7 +165,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Account"
           name="account"
-          value={form.account}
+          value={userData?.account}
           onChange={handleChange}
           placeholder="Account"
         />
@@ -175,7 +183,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Password"
           name="password"
-          value={form.password}
+          value={userData?.password}
           onChange={handleChange}
           placeholder="Password"
         />
@@ -188,8 +196,8 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Password again"
           name="passwordagain"
-          value={form.passwordagain}
-          onChange={handleChange}
+          value={passwordagain}
+          onChange={handlePassword}
           placeholder="Password again"
         />
       </div>
@@ -200,7 +208,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Email"
           name="email"
-          value={form.email}
+          value={userData?.email}
           onChange={handleChange}
           placeholder="abc@xy.z"
         />
@@ -210,7 +218,7 @@ export default function SignUpForm() {
           id="outlined-required"
           label="Telephone"
           name="telephone"
-          value={form.telephone}
+          value={userData?.telephone}
           onChange={handleChange}
           placeholder="0123456789"
         />
@@ -235,11 +243,12 @@ export default function SignUpForm() {
         <Button
           variant="contained"
           onClick={() => {
-            if (userServ.signupWarning(form) != "") {
-              setWarning(userServ.signupWarning(form));
+            if (userServ.signupWarning(userData, passwordagain) != "") {
+              setWarning(userServ.signupWarning(userData, passwordagain));
               setValid(false);
             } else {
-              if (userServ.createUserData(form)) router.push("petsignin");
+              if (userServ.createUserData(userData, passwordagain))
+                router.push("petsignin");
               else {
                 setWarning("Account or email is being used");
                 setValid(false);
