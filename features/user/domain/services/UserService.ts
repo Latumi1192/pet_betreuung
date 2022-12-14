@@ -3,9 +3,10 @@ import { PetData } from "../dto/PetData";
 import { UserData } from "../dto/UserData";
 
 export interface UserService {
-  createUserData(form: any): boolean;
+  createUserData(userData: UserData, passwordagain: string): boolean;
   createPetData(form: any): boolean;
-  signupWarning(form: any): String;
+  signupWarning(userData: UserData, passwordagain: string): string;
   isRegistered(form: any): boolean;
-  recoverPassword(email:string): string;
+  recoverPassword(email: string): string;
+  editProfile(uid: number, form: any): boolean;
 }

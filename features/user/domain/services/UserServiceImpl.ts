@@ -17,45 +17,22 @@ export class UserServiceImpl implements UserService {
     return this.userRepo.findPassword(email);
   }
 
-  createUserData(form: any): boolean {
+  editProfile(uid: number, form: any): boolean {
     var success = false;
-    if (
-      form.password == form.passwordagain &&
-      form.firstname != "" &&
-      form.lastname != "" &&
-      form.addresse != "" &&
-      form.zipcode != 0 &&
-      form.city != "" &&
-      form.country != "" &&
-      form.account != "" &&
-      form.password != "" &&
-      form.email != "" &&
-      form.telephone != 0 &&
-      this.emailRe.test(form.email)
-    ) {
-      const userData: UserData = {
-        firstname: form.firstname,
-        lastname: form.lastname,
-        addresse: form.addresse,
-        zipcode: form.zipcode,
-        city: form.city,
-        country: form.country,
-        telephone: form.telephone,
-        gender: form.gender,
-        account: form.account,
-        password: form.password,
-        email: form.email,
-        profilepicture: form.profilepicture,
-        uid: 0,
-        pet: [],
-      };
-      console.log(userData);
-      this.userRepo.addUser(userData) ? (success = true) : (success = false);
+    console.log(this.editWarning(form));
+    if (this.editWarning(form) === "") {
+      let tmpUserData = this.userRepo.getUserFromID(uid);
+      console.log(tmpUserData);
+      this.userRepo.editUserData(uid, form)
+        ? (success = true)
+        : (success = false);
+      let newUserData = this.userRepo.getUserFromID(uid);
+      console.log(newUserData);
     }
     return success;
   }
 
-  signupWarning(form: any): string {
+  editWarning(form: any): string {
     switch (true) {
       case form.firstname === "":
         return "Missing first name";
@@ -69,23 +46,53 @@ export class UserServiceImpl implements UserService {
         return "Missing city";
       case form.country === "":
         return "Missing country";
-      case form.account === "":
-        return "Missing account";
-      case this.accountRe.test(form.account) == false:
-        return "Account must have 8-20 character";
-      case form.password === "":
-        return "Missing password";
-      case this.passwordRe.test(form.password) == false:
-        return "Password must have 8-20 character";
-      case form.passwordagain === "":
-        return "Missing password again ";
-      case form.password != form.passwordagain:
-        return "Password is not identical";
-      case form.email === "":
-        return "Missing email";
-      case this.emailRe.test(form.email) === false:
-        return "Email is invalid";
       case form.telephone === 0:
+        return "Missing telephone";
+      default:
+        return "";
+    }
+  }
+
+  createUserData(userData: UserData, passwordagain: string): boolean {
+    var success = false;
+    if (this.signupWarning(userData, passwordagain) === "") {
+      console.log(userData);
+      this.userRepo.addUser(userData) ? (success = true) : (success = false);
+    }
+    return success;
+  }
+
+  signupWarning(userData: UserData, passwordagain: string): string {
+    switch (true) {
+      case userData.firstname === "":
+        return "Missing first name";
+      case userData.lastname === "":
+        return "Missing last name";
+      case userData.addresse === "":
+        return "Missing addresse";
+      case userData.zipcode === 0:
+        return "Missing zipcode";
+      case userData.city === "":
+        return "Missing city";
+      case userData.country === "":
+        return "Missing country";
+      case userData.account === "":
+        return "Missing account";
+      case this.accountRe.test(userData.account) === false:
+        return "Account must have 8-20 character";
+      case userData.password === "":
+        return "Missing password";
+      case this.passwordRe.test(userData.password) === false:
+        return "Password must have 8-20 character";
+      case passwordagain === "":
+        return "Missing password again ";
+      case userData.password != passwordagain:
+        return "Password is not identical";
+      case userData.email === "":
+        return "Missing email";
+      case this.emailRe.test(userData.email) === false:
+        return "Email is invalid";
+      case userData.telephone === 0:
         return "Missing telephone";
       default:
         return "";

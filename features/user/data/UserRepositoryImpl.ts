@@ -6,6 +6,17 @@ export class UserRepositoryImpl implements UserRepository {
   userDB: UserData[] = [];
   emptyDB: UserData[] = [];
 
+  editUserData(uid: number, form: any): boolean {
+    let tmpUserData = this.getUserFromID(uid);
+    tmpUserData.firstname = form.firstname;
+    tmpUserData.lastname = form.firstname;
+    tmpUserData.addresse = form.firstname;
+    tmpUserData.zipcode = form.firstname;
+    tmpUserData.city = form.firstname;
+    tmpUserData.country = form.firstname;
+    tmpUserData.telephone = form.firstname;
+    return true;
+  }
   getUserDB(): UserData[] {
     try {
       return JSON.parse(localStorage.getItem("userDB") || "");
