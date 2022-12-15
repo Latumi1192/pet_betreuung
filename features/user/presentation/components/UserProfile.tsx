@@ -5,14 +5,17 @@ import Typography from "@mui/material/Typography";
 import { UserData } from "../../domain/dto/UserData";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { UserID } from "../../../../context/UserID";
 
 export default function UserProfile() {
   const userRepo = new UserRepositoryImpl();
   const [userData, setUserData] = React.useState<UserData>();
   const router = useRouter();
+  const { uid, setUID } = useContext(UserID);
 
   React.useEffect(() => {
-    const foundUserData = userRepo.getUserFromID(734477);
+    const foundUserData = userRepo.getUserFromID(uid);
     setUserData(foundUserData);
   }, []);
 

@@ -5,6 +5,22 @@ import { UserRepository } from "./UserRepository";
 export class UserRepositoryImpl implements UserRepository {
   userDB: UserData[] = [];
   emptyDB: UserData[] = [];
+  emptyUserData: UserData = {
+    firstname: "",
+    lastname: "",
+    addresse: "",
+    zipcode: 0,
+    city: "",
+    country: "",
+    telephone: 0,
+    gender: "",
+    account: "",
+    password: "",
+    email: "",
+    profilepicture: "",
+    uid: 0,
+    pet: [],
+  };
 
   editUserData(uid: number, form: any): boolean {
     let tmpUserData = this.getUserFromID(uid);
@@ -49,7 +65,7 @@ export class UserRepositoryImpl implements UserRepository {
     console.log(this.userDB);
   }
 
-  isRegistered(account: string, password: string): boolean {
+  isRegistered(account: string, password: string): UserData {
     if (
       account === null ||
       password === null ||
@@ -59,15 +75,14 @@ export class UserRepositoryImpl implements UserRepository {
       throw new Error("Check parameter");
 
     this.userDB = this.getUserDB();
-
     for (let i = 0; i < this.userDB.length; i++) {
       if (
         this.userDB[i].account === account &&
         this.userDB[i].password === password
       )
-        return true;
+        return this.userDB[i];
     }
-    return false;
+    return this.emptyUserData;
   }
 
   addUser(user: UserData): boolean {

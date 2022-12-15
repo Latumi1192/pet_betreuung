@@ -11,10 +11,13 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
+import { UserID } from "../../../../context/UserID";
+import { useContext } from "react";
 
 export default function SignInForm() {
   const userServ = new UserServiceImpl();
   const router = useRouter();
+  const { uid, setUID } = useContext(UserID);
 
   const [form, setForm] = React.useState({
     account: "",
@@ -93,9 +96,12 @@ export default function SignInForm() {
           onClick={() => {
             if (form.account == "" || form.password == "") setRegistered(false);
             else {
-              userServ.isRegistered(form)
-                ? router.push("/")
-                : setRegistered(false);
+              if (userServ.isRegistered(form).account != "") {
+                setUID(userServ.isRegistered(form).uid);
+                router.push("/");
+              } else {
+                setRegistered(false);
+              }
               console.log(isRegistered);
             }
           }}

@@ -9,9 +9,15 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import { AccountCircle } from "@mui/icons-material";
 import Menu from "@mui/material/Menu/Menu";
 import MenuItem from "@mui/material/MenuItem/MenuItem";
+import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
+import { UserID } from "../../../../context/UserID";
+import { useContext } from "react";
 
 export default function PageBar() {
+  const { uid, setUID } = useContext(UserID);
+
   const router = useRouter();
+  const userRepo = new UserRepositoryImpl();
   const [signin, setSignIn] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -22,6 +28,12 @@ export default function PageBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  React.useEffect(() => {
+    const foundUserID = userRepo.getUserFromID(uid);
+    if (uid != 0) setSignIn(true);
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -85,10 +97,17 @@ export default function PageBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    router.push("/userprofile");
+                  }}
+                >
+                  Profile
+                </MenuItem>
                 <MenuItem
                   onClick={() => {
                     handleClose;
+                    setUID(0);
                     setSignIn(false);
                   }}
                 >

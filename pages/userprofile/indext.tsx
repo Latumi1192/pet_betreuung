@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import UserProfile from "../../features/user/presentation/components/UserProfile";
 
-const ProfilePage = () => {
+const PasswordRecoverPage = () => {
   return (
     <Grid
       container
@@ -19,4 +19,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default PasswordRecoverPage;

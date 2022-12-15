@@ -8,7 +8,7 @@ export interface UserRepository {
   getUserFromID(uid: number): UserData;
   deleteUser(user: UserData): boolean;
   generateID(): number;
-  isRegistered(account: string, password: string): boolean;
+  isRegistered(account: string, password: string): UserData;
   findPassword(email: string): string;
   editUserData(uid: number, form: any): boolean;
 }

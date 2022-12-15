@@ -9,7 +9,7 @@ export class UserServiceImpl implements UserService {
   accountRe = new RegExp("^[\\w.-]{7,19}[0-9a-zA-Z]$");
   passwordRe = new RegExp("^^[\\w.-]{7,19}[0-9a-zA-Z]$");
 
-  isRegistered(form: any): boolean {
+  isRegistered(form: any): UserData {
     return this.userRepo.isRegistered(form.account, form.password);
   }
 
