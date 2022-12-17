@@ -8,5 +8,5 @@ export interface UserService {
   signupWarning(userData: UserData, passwordagain: string): string;
   isRegistered(form: any): UserData;
   recoverPassword(email: string): string;
-  editProfile(uid: number, form: any): boolean;
+  editProfile(uid: number, userData: UserData): boolean;
 }

@@ -17,36 +17,32 @@ export class UserServiceImpl implements UserService {
     return this.userRepo.findPassword(email);
   }
 
-  editProfile(uid: number, form: any): boolean {
+  editProfile(uid: number, userData: UserData): boolean {
     var success = false;
-    console.log(this.editWarning(form));
-    if (this.editWarning(form) === "") {
-      let tmpUserData = this.userRepo.getUserFromID(uid);
-      console.log(tmpUserData);
-      this.userRepo.editUserData(uid, form)
+    console.log(this.editWarning(userData));
+    if (this.editWarning(userData) === "") {
+      this.userRepo.editUserData(uid, userData)
         ? (success = true)
         : (success = false);
-      let newUserData = this.userRepo.getUserFromID(uid);
-      console.log(newUserData);
     }
     return success;
   }
 
-  editWarning(form: any): string {
+  editWarning(userData: UserData): string {
     switch (true) {
-      case form.firstname === "":
+      case userData.firstname === "":
         return "Missing first name";
-      case form.lastname === "":
+      case userData.lastname === "":
         return "Missing last name";
-      case form.addresse === "":
+      case userData.addresse === "":
         return "Missing addresse";
-      case form.zipcode === 0:
+      case userData.zipcode === 0:
         return "Missing zipcode";
-      case form.city === "":
+      case userData.city === "":
         return "Missing city";
-      case form.country === "":
+      case userData.country === "":
         return "Missing country";
-      case form.telephone === 0:
+      case userData.telephone === 0:
         return "Missing telephone";
       default:
         return "";

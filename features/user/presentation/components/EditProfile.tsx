@@ -8,6 +8,7 @@ import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
 import { UserData } from "../../domain/dto/UserData";
 import { PetData } from "../../domain/dto/PetData";
+import { UserID } from "../../../../context/UserID";
 
 export default function EditProfile() {
   const router = useRouter();
@@ -17,23 +18,9 @@ export default function EditProfile() {
   const [valid, setValid] = React.useState(true);
   const [warning, setWarning] = React.useState("");
 
-  const uid = 734477;
-  React.useEffect(() => {
-    const foundUserData = userRepo.getUserFromID(uid);
-    setForm({
-      firstname: foundUserData.firstname,
-      lastname: foundUserData.lastname,
-      addresse: foundUserData.addresse,
-      zipcode: foundUserData.zipcode,
-      city: foundUserData.city,
-      country: foundUserData.country,
-      telephone: foundUserData.telephone,
-      gender: foundUserData.gender,
-      profilepicture: foundUserData.profilepicture,
-    });
-  });
+  const { uid, setUID } = React.useContext(UserID);
 
-  const [form, setForm] = React.useState({
+  const [userData, setUserData] = React.useState<UserData>({
     firstname: "",
     lastname: "",
     addresse: "",
@@ -42,12 +29,22 @@ export default function EditProfile() {
     country: "",
     telephone: 0,
     gender: "",
+    account: "",
+    password: "",
+    email: "",
     profilepicture: "",
+    uid: 0,
+    pet: new Array<PetData>(),
   });
 
+  React.useEffect(() => {
+    const foundUserData = userRepo.getUserFromID(uid);
+    setUserData(foundUserData);
+  }, []);
+
   const handleChange = (event: { target: { name: any; value: any } }) => {
-    setForm({
-      ...form,
+    setUserData({
+      ...userData,
       [event.target.name]: event.target.value,
     });
   };
@@ -88,7 +85,7 @@ export default function EditProfile() {
           id="outlined-required"
           label="First Name"
           name="firstname"
-          value={form.firstname}
+          value={userData.firstname}
           onChange={handleChange}
           placeholder="Enter your first name"
         />
@@ -98,7 +95,7 @@ export default function EditProfile() {
           id="outlined-required"
           label="Last Name"
           name="lastname"
-          value={form.lastname}
+          value={userData.lastname}
           onChange={handleChange}
           placeholder="Enter your last name"
         />
@@ -110,7 +107,7 @@ export default function EditProfile() {
           id="outlined-required"
           label="Addresse"
           name="addresse"
-          value={form.addresse}
+          value={userData.addresse}
           onChange={handleChange}
           placeholder="Enter your addresse"
         />
@@ -120,7 +117,7 @@ export default function EditProfile() {
           id="outlined-required"
           label="ZIP Code"
           name="zipcode"
-          value={form.zipcode}
+          value={userData.zipcode}
           onChange={handleChange}
           placeholder="12345"
         />
@@ -132,7 +129,7 @@ export default function EditProfile() {
           id="outlined-required"
           label="City"
           name="city"
-          value={form.city}
+          value={userData.city}
           onChange={handleChange}
           placeholder="Hamburg"
         />
@@ -142,7 +139,7 @@ export default function EditProfile() {
           id="outlined-required"
           label="Country"
           name="country"
-          value={form.country}
+          value={userData.country}
           onChange={handleChange}
           placeholder="Germany"
         />
@@ -158,7 +155,7 @@ export default function EditProfile() {
           id="outlined-required"
           label="Telephone"
           name="telephone"
-          value={form.telephone}
+          value={userData.telephone}
           onChange={handleChange}
           placeholder="0123456789"
         />
@@ -173,7 +170,12 @@ export default function EditProfile() {
         <Button
           variant="contained"
           onClick={() => {
-            userServ.editProfile(uid, form);
+            if (userServ.editProfile(uid, userData)) {
+              router.push("/userprofile");
+            } else {
+              setValid(false);
+              setWarning(userServ.editWarning(userData));
+            }
           }}
         >
           Save

@@ -10,5 +10,5 @@ export interface UserRepository {
   generateID(): number;
   isRegistered(account: string, password: string): UserData;
   findPassword(email: string): string;
-  editUserData(uid: number, form: any): boolean;
+  editUserData(uid: number, userData: UserData): boolean;
 }

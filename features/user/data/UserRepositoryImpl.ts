@@ -22,15 +22,16 @@ export class UserRepositoryImpl implements UserRepository {
     pet: [],
   };
 
-  editUserData(uid: number, form: any): boolean {
-    let tmpUserData = this.getUserFromID(uid);
-    tmpUserData.firstname = form.firstname;
-    tmpUserData.lastname = form.firstname;
-    tmpUserData.addresse = form.firstname;
-    tmpUserData.zipcode = form.firstname;
-    tmpUserData.city = form.firstname;
-    tmpUserData.country = form.firstname;
-    tmpUserData.telephone = form.firstname;
+  editUserData(uid: number, userData: UserData): boolean {
+    this.userDB = this.getUserDB();
+    this.userDB.splice(
+      this.userDB.findIndex((x) => x.uid === uid),
+      1,
+      userData
+    );
+    console.log(this.userDB);
+
+    localStorage.setItem("userDB", JSON.stringify(this.userDB));
     return true;
   }
   getUserDB(): UserData[] {
