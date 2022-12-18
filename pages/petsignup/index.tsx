@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import PetSignUpForm from "../../features/user/presentation/components/PetSignUpForm";
 
-const PetSignInPage = () => {
+const PetSignUpPage = () => {
   return (
     <Grid
       container
@@ -19,4 +19,4 @@ const PetSignInPage = () => {
   );
 };
 
-export default PetSignInPage;
+export default PetSignUpPage;
