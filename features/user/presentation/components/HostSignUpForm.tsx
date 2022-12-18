@@ -16,6 +16,9 @@ import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
 import { UserData } from "../../domain/dto/UserData";
 import { PetData } from "../../domain/dto/PetData";
+import { HostData } from "../../domain/dto/HostData";
+import { UserID } from "../../../../context/UserID";
+import { useContext } from "react";
 
 export default function HostSignUpForm() {
   const router = useRouter();
@@ -25,33 +28,26 @@ export default function HostSignUpForm() {
   const [valid, setValid] = React.useState(true);
   const [warning, setWarning] = React.useState("");
 
-  const [userData, setUserData] = React.useState<UserData>({
-    firstname: "",
-    lastname: "",
-    addresse: "",
-    zipcode: 0,
-    city: "",
-    country: "",
-    telephone: 0,
-    gender: "",
-    account: "",
-    password: "",
-    email: "",
+  const { uid, setUID } = useContext(UserID);
+
+  const [hostData, setHostData] = React.useState<HostData>({
     profilepicture: "",
+    hostdocu: "",
+    kind: "",
+    race: "",
+    petgender: "",
+    petpicture: "",
+    petdocu: "",
+    aboutpet: "",
+    abouthost: "",
     uid: 0,
-    pet: new Array<PetData>(),
   });
 
   const handleChange = (event: { target: { name: any; value: any } }) => {
-    setUserData({
-      ...userData,
+    setHostData({
+      ...hostData,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const [passwordagain, setPasswordAgain] = React.useState("");
-  const handlePassword = (event: { target: { name: any; value: any } }) => {
-    setPasswordAgain(event.target.value);
   };
 
   return (
@@ -64,8 +60,9 @@ export default function HostSignUpForm() {
         borderRadius: "16px",
         "& .MuiTextField-root": { m: 2, width: "25ch" },
         "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
+        "& .MuiTypography-root": { ml: 2 },
         "& .MuiFormGroup-root": { mt: 0, ml: 1 },
-        "& .MuiFormControlLabel-root": { m: 0 },
+        "& .MuiFormControlLabel-root": { ml: 1 },
       }}
       noValidate
       autoComplete="off"
@@ -84,198 +81,98 @@ export default function HostSignUpForm() {
         </div>
       )}
       <div>
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="First Name"
-          name="firstname"
-          value={userData?.firstname}
-          onChange={handleChange}
-          placeholder="Enter your first name"
-        />
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Last Name"
-          name="lastname"
-          value={userData?.lastname}
-          onChange={handleChange}
-          placeholder="Enter your last name"
-        />
-      </div>
-      <div>
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Addresse"
-          name="addresse"
-          value={userData?.addresse}
-          onChange={handleChange}
-          placeholder="Enter your addresse"
-        />
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="ZIP Code"
-          name="zipcode"
-          value={userData?.zipcode}
-          onChange={handleChange}
-          placeholder="12345"
-        />
-      </div>
-      <div>
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="City"
-          name="city"
-          value={userData?.city}
-          onChange={handleChange}
-          placeholder="Hamburg"
-        />
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Country"
-          name="country"
-          value={userData?.country}
-          onChange={handleChange}
-          placeholder="Germany"
-        />
-      </div>
-
-      <div>
-        <GenderButton />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Account"
-          name="account"
-          value={userData?.account}
-          onChange={handleChange}
-          placeholder="Account"
-        />
-        <Typography>*Must have 8-20 characters </Typography>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Password"
-          name="password"
-          value={userData?.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
-        <Typography>*Must have 8-20 characters </Typography>
-      </div>
-      <div>
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Password again"
-          name="passwordagain"
-          value={passwordagain}
-          onChange={handlePassword}
-          placeholder="Password again"
-        />
-      </div>
-      <div>
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Email"
-          name="email"
-          value={userData?.email}
-          onChange={handleChange}
-          placeholder="abc@xy.z"
-        />
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Telephone"
-          name="telephone"
-          value={userData?.telephone}
-          onChange={handleChange}
-          placeholder="0123456789"
-        />
-      </div>
-      <div>
         <Button variant="outlined" component="label">
-          Profile picture
+          Photo of Host
           <input hidden accept="image/*" multiple type="file" />
         </Button>
       </div>
-      <FormGroup>
+      <Typography>OR</Typography>
+      <div>
+        <FormControlLabel control={<Checkbox />} label="Use Profile picture" />
+      </div>
+      <div>
+        <Button variant="outlined" component="label">
+          Document of Host
+          <input hidden accept="image/*" multiple type="file" />
+        </Button>
+      </div>
+      <Typography>
+        ________________________________________________________
+      </Typography>
+      <div>
+        <Button variant="outlined" component="label">
+          Photo of Pet
+          <input hidden accept="image/*" multiple type="file" />
+        </Button>
+      </div>
+      <div>
+        <Button variant="outlined" component="label">
+          Document of Pet
+          <input hidden accept="image/*" multiple type="file" />
+        </Button>
+      </div>
+      <div>
+        <TextField
+          focused
+          required
+          id="outlined-required"
+          label="Kind"
+          name="kind"
+          placeholder="Dog, Cat, Rabbit etc..."
+        />
+      </div>
+      <div>
+        <TextField
+          focused
+          required
+          id="outlined-required"
+          label="Race"
+          name="race"
+          placeholder="Malteser, Poodle etc..."
+        />
+      </div>
+      <div>
+        <GenderButton />
+      </div>
+      <Typography>OR</Typography>
+      <div>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Use your pet's Profile"
+        />
+      </div>
+      <Typography>
+        ________________________________________________________
+      </Typography>
+      <div>
+        <TextField
+          focused
+          required
+          multiline
+          rows={4}
+          fullWidth={true}
+          id="outlined-required"
+          label="About"
+          name="about"
+          placeholder="Tell me about you"
+        />
+      </div>
+      <div>
         <FormControlLabel
           control={<Checkbox />}
           label="Datenschutzerklärung "
         />
+      </div>
+      <div>
         <FormControlLabel
           control={<Checkbox />}
           label="Allgemein geschäftsbedingungen "
         />
-      </FormGroup>
+      </div>
       <div>
-        <Button
-          variant="contained"
-          onClick={() => {
-            if (userServ.signupWarning(userData, passwordagain) != "") {
-              setWarning(userServ.signupWarning(userData, passwordagain));
-              setValid(false);
-            } else {
-              if (userServ.createUserData(userData, passwordagain))
-                router.push("petsignin");
-              else {
-                setWarning("Account or email is being used");
-                setValid(false);
-              }
-            }
-          }}
-        >
+        <Button variant="contained" onClick={() => {}}>
           Sign Up
         </Button>
-        {/* <Button
-          variant="contained"
-          onClick={() => {
-            userRepo.resetDB();
-          }}
-        >
-          Clear DB
-        </Button> */}
-        {
-          <Button
-            variant="contained"
-            onClick={() => {
-              userRepo.printDB();
-            }}
-          >
-            Show DB
-          </Button>
-        }
       </div>
     </Box>
   );
