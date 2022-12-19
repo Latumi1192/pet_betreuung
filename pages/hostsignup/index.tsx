@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import PetSignUpForm from "../../features/user/presentation/components/PetSignUpForm";
+import HostSignUpForm from "../../features/user/presentation/components/HostSignUpForm";
 
 const HostSignUpPage = () => {
   return (
@@ -13,7 +13,7 @@ const HostSignUpPage = () => {
       style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
-        <PetSignUpForm />
+        <HostSignUpForm />
       </Grid>
     </Grid>
   );

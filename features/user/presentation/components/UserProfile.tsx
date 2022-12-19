@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { UserID } from "../../../../context/UserID";
+import PageBar from "./PageBar";
 
 export default function UserProfile() {
   const userRepo = new UserRepositoryImpl();
@@ -20,29 +21,35 @@ export default function UserProfile() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        width: "500px",
-        border: 3,
-        borderColor: "primary.main",
-        borderRadius: "16px",
-        "& .MuiTypography-root": { mt: 1, ml: 1 },
-        "& .MuiButton-root": { m: 1 },
-      }}
-    >
-      <Typography variant="h5">First name: {userData?.firstname}</Typography>
-      <Typography variant="h5">Last name: {userData?.lastname}</Typography>
-      <Typography variant="h5">Address: {userData?.addresse}, </Typography>
-      <Typography variant="h5">
-        {userData?.zipcode} {userData?.city},
-      </Typography>
-      <Typography variant="h5">{userData?.country}</Typography>
-      <Typography variant="h5">Telephone: {userData?.telephone}</Typography>
-      <Typography variant="h5">Gender: {userData?.gender}</Typography>
-      <Typography variant="h5">Email: {userData?.email}</Typography>
-      <Button variant="contained" onClick={() => router.push("/editprofile")}>
-        Edit Profile
-      </Button>
+    <Box>
+      <PageBar />
+      <Box
+        m="auto"
+        sx={{
+          mt: 1,
+          width: "500px",
+          border: 3,
+          borderColor: "primary.main",
+          borderRadius: "16px",
+          "& .MuiTypography-root": { mt: 1, ml: 1 },
+          "& .MuiButton-root": { m: 1 },
+        }}
+      >
+        <Typography variant="h5">First name: {userData?.firstname}</Typography>
+        <Typography variant="h5">Last name: {userData?.lastname}</Typography>
+        <Typography variant="h5">Address: {userData?.addresse}, </Typography>
+        <Typography variant="h5">
+          {userData?.zipcode} {userData?.city},
+        </Typography>
+        <Typography variant="h5">{userData?.country}</Typography>
+        <Typography variant="h5">Telephone: {userData?.telephone}</Typography>
+        <Typography variant="h5">Gender: {userData?.gender}</Typography>
+        <Typography variant="h5">Email: {userData?.email}</Typography>
+        <Button variant="contained" onClick={() => router.push("/editprofile")}>
+          Edit Profile
+        </Button>
+        <Button onClick={() => router.push("/")}>Back to Home</Button>
+      </Box>{" "}
     </Box>
   );
 }

@@ -49,7 +49,12 @@ export default function PageBar() {
             </Button>
           </Typography>
           <Typography sx={{ mr: 20 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
+            <Button
+              sx={{ my: 2, color: "white", display: "block" }}
+              onClick={() => {
+                uid != 0 ? router.push("/hostsignup") : router.push("/signin");
+              }}
+            >
               Be a Host
             </Button>
           </Typography>

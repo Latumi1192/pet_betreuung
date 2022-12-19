@@ -19,6 +19,7 @@ import { PetData } from "../../domain/dto/PetData";
 import { HostData } from "../../domain/dto/HostData";
 import { UserID } from "../../../../context/UserID";
 import { useContext } from "react";
+import PageBar from "./PageBar";
 
 export default function HostSignUpForm() {
   const router = useRouter();
@@ -51,129 +52,137 @@ export default function HostSignUpForm() {
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        width: 550,
-        border: 3,
-        borderColor: "primary.main",
-        borderRadius: "16px",
-        "& .MuiTextField-root": { m: 2, width: "25ch" },
-        "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
-        "& .MuiTypography-root": { ml: 2 },
-        "& .MuiFormGroup-root": { mt: 0, ml: 1 },
-        "& .MuiFormControlLabel-root": { ml: 1 },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      {!valid && (
+    <Box>
+      <PageBar />
+      <Box
+        component="form"
+        m="auto"
+        sx={{
+          mt: 1,
+          width: 550,
+          border: 3,
+          borderColor: "primary.main",
+          borderRadius: "16px",
+          "& .MuiTextField-root": { m: 2, width: "25ch" },
+          "& .MuiButton-root": { mt: 1, ml: 2, mb: 1 },
+          "& .MuiTypography-root": { ml: 2, mb: 0 },
+          "& .MuiFormGroup-root": { mt: 0, ml: 1 },
+          "& .MuiFormControlLabel-root": { ml: 1 },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        {!valid && (
+          <div>
+            <Alert
+              severity="error"
+              sx={{
+                borderRadius: "16px 16px 0px 0px",
+              }}
+            >
+              <AlertTitle>Error</AlertTitle>
+              <strong>{warning}</strong>
+            </Alert>
+          </div>
+        )}
         <div>
-          <Alert
-            severity="error"
-            sx={{
-              borderRadius: "16px 16px 0px 0px",
-            }}
-          >
-            <AlertTitle>Error</AlertTitle>
-            <strong>{warning}</strong>
-          </Alert>
+          <Button variant="outlined" component="label">
+            Photo of Host
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
         </div>
-      )}
-      <div>
-        <Button variant="outlined" component="label">
-          Photo of Host
-          <input hidden accept="image/*" multiple type="file" />
-        </Button>
-      </div>
-      <Typography>OR</Typography>
-      <div>
-        <FormControlLabel control={<Checkbox />} label="Use Profile picture" />
-      </div>
-      <div>
-        <Button variant="outlined" component="label">
-          Document of Host
-          <input hidden accept="image/*" multiple type="file" />
-        </Button>
-      </div>
-      <Typography>
-        ________________________________________________________
-      </Typography>
-      <div>
-        <Button variant="outlined" component="label">
-          Photo of Pet
-          <input hidden accept="image/*" multiple type="file" />
-        </Button>
-      </div>
-      <div>
-        <Button variant="outlined" component="label">
-          Document of Pet
-          <input hidden accept="image/*" multiple type="file" />
-        </Button>
-      </div>
-      <div>
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Kind"
-          name="kind"
-          placeholder="Dog, Cat, Rabbit etc..."
-        />
-      </div>
-      <div>
-        <TextField
-          focused
-          required
-          id="outlined-required"
-          label="Race"
-          name="race"
-          placeholder="Malteser, Poodle etc..."
-        />
-      </div>
-      <div>
-        <GenderButton />
-      </div>
-      <Typography>OR</Typography>
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Use your pet's Profile"
-        />
-      </div>
-      <Typography>
-        ________________________________________________________
-      </Typography>
-      <div>
-        <TextField
-          focused
-          required
-          multiline
-          rows={4}
-          fullWidth={true}
-          id="outlined-required"
-          label="About"
-          name="about"
-          placeholder="Tell me about you"
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Datenschutzerklärung "
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Allgemein geschäftsbedingungen "
-        />
-      </div>
-      <div>
-        <Button variant="contained" onClick={() => {}}>
-          Sign Up
-        </Button>
-      </div>
+        <Typography>OR</Typography>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Use Profile picture"
+          />
+        </div>
+        <div>
+          <Button variant="outlined" component="label">
+            Document of Host
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
+        </div>
+        <Typography>
+          ________________________________________________________
+        </Typography>
+        <div>
+          <Button variant="outlined" component="label">
+            Photo of Pet
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
+        </div>
+        <div>
+          <Button variant="outlined" component="label">
+            Document of Pet
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
+        </div>
+        <div>
+          <TextField
+            focused
+            required
+            id="outlined-required"
+            label="Kind"
+            name="kind"
+            placeholder="Dog, Cat, Rabbit etc..."
+          />
+        </div>
+        <div>
+          <TextField
+            focused
+            required
+            id="outlined-required"
+            label="Race"
+            name="race"
+            placeholder="Malteser, Poodle etc..."
+          />
+        </div>
+        <div>
+          <GenderButton />
+        </div>
+        <Typography>OR</Typography>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Use your pet's Profile"
+          />
+        </div>
+        <Typography>
+          ________________________________________________________
+        </Typography>
+        <div>
+          <TextField
+            focused
+            required
+            multiline
+            rows={4}
+            fullWidth={true}
+            id="outlined-required"
+            label="About"
+            name="about"
+            placeholder="Tell me about you"
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Datenschutzerklärung "
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Allgemein geschäftsbedingungen "
+          />
+        </div>
+        <div>
+          <Button variant="contained" onClick={() => {}}>
+            Sign Up
+          </Button>
+        </div>
+      </Box>
     </Box>
   );
 }
