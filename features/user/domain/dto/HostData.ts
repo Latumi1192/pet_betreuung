@@ -6,7 +6,6 @@ export type HostData = {
   petgender: string;
   petpicture: string;
   petdocu: string;
-  aboutpet: string;
   abouthost: string;
   uid: number;
 };

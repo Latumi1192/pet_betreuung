@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem/MenuItem";
 import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
 import { UserID } from "../../../../context/UserID";
 import { useContext } from "react";
+import { Alert, AlertTitle } from "@mui/material";
 
 export default function PageBar() {
   const { uid, setUID } = useContext(UserID);
@@ -20,6 +21,8 @@ export default function PageBar() {
   const userRepo = new UserRepositoryImpl();
   const [signin, setSignIn] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [warning, setWarning] = React.useState("");
+  const [valid, setValid] = React.useState(true);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,7 +42,12 @@ export default function PageBar() {
       <AppBar position="static">
         <Toolbar variant="dense">
           <Typography sx={{ mr: 20 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }} href="/">
+            <Button
+              sx={{ my: 2, color: "white", display: "block" }}
+              onClick={() => {
+                router.push("/");
+              }}
+            >
               Logo
             </Button>
           </Typography>
@@ -52,7 +60,14 @@ export default function PageBar() {
             <Button
               sx={{ my: 2, color: "white", display: "block" }}
               onClick={() => {
-                uid != 0 ? router.push("/hostsignup") : router.push("/signin");
+                if (uid === 0) {
+                  router.push("/signin");
+                } else if (userRepo.isRegisteredHost(uid)) {
+                  setValid(false);
+                  setWarning("You are already a host");
+                } else {
+                  router.push("/hostsignup");
+                }
               }}
             >
               Be a Host
@@ -114,6 +129,7 @@ export default function PageBar() {
                     handleClose;
                     setUID(0);
                     setSignIn(false);
+                    router.push("/");
                   }}
                 >
                   Sign Out
@@ -133,6 +149,13 @@ export default function PageBar() {
           )}
         </Toolbar>
       </AppBar>
+      {!valid && (
+        <div>
+          <Alert severity="warning">
+            <strong>{warning}</strong>
+          </Alert>
+        </div>
+      )}
     </Box>
   );
 }

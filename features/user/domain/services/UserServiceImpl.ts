@@ -1,4 +1,5 @@
 import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
+import { HostData } from "../dto/HostData";
 import { PetData } from "../dto/PetData";
 import { UserData } from "../dto/UserData";
 import { UserService } from "./UserService";
@@ -9,6 +10,30 @@ export class UserServiceImpl implements UserService {
   accountRe = new RegExp("^[\\w.-]{7,19}[0-9a-zA-Z]$");
   passwordRe = new RegExp("^^[\\w.-]{7,19}[0-9a-zA-Z]$");
 
+  createHostData(hostData: HostData): boolean {
+    let success = false;
+    if (this.signupHostWarning(hostData) === "")
+      this.userRepo.addHost(hostData) ? (success = true) : (success = false);
+    return success;
+  }
+
+  editHostData(hostData: HostData): boolean {
+    throw new Error("Method not implemented.");
+  }
+
+  signupHostWarning(hostData: HostData): string {
+    switch (true) {
+      case hostData.kind === "":
+        return "Missing Kind of Pet";
+      case hostData.race === "":
+        return "Missing Race of Pet";
+      case hostData.abouthost === "":
+        return "Tell us about you";
+      default:
+        return "";
+    }
+  }
+
   isRegistered(form: any): UserData {
     return this.userRepo.isRegistered(form.account, form.password);
   }
@@ -18,7 +43,7 @@ export class UserServiceImpl implements UserService {
   }
 
   editProfile(uid: number, userData: UserData): boolean {
-    var success = false;
+    let success = false;
     console.log(this.editWarning(userData));
     if (this.editWarning(userData) === "") {
       this.userRepo.editUserData(uid, userData)
@@ -50,7 +75,7 @@ export class UserServiceImpl implements UserService {
   }
 
   createUserData(userData: UserData, passwordagain: string): boolean {
-    var success = false;
+    let success = false;
     if (this.signupWarning(userData, passwordagain) === "") {
       console.log(userData);
       this.userRepo.addUser(userData) ? (success = true) : (success = false);

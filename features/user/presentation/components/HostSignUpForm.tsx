@@ -39,7 +39,6 @@ export default function HostSignUpForm() {
     petgender: "",
     petpicture: "",
     petdocu: "",
-    aboutpet: "",
     abouthost: "",
     uid: 0,
   });
@@ -126,6 +125,8 @@ export default function HostSignUpForm() {
             id="outlined-required"
             label="Kind"
             name="kind"
+            value={hostData.kind}
+            onChange={handleChange}
             placeholder="Dog, Cat, Rabbit etc..."
           />
         </div>
@@ -136,6 +137,8 @@ export default function HostSignUpForm() {
             id="outlined-required"
             label="Race"
             name="race"
+            value={hostData.race}
+            onChange={handleChange}
             placeholder="Malteser, Poodle etc..."
           />
         </div>
@@ -156,13 +159,14 @@ export default function HostSignUpForm() {
           <TextField
             focused
             required
-            multiline
-            rows={4}
-            fullWidth={true}
             id="outlined-required"
             label="About"
-            name="about"
-            placeholder="Tell me about you"
+            name="abouthost"
+            multiline
+            rows={4}
+            value={hostData.abouthost}
+            onChange={handleChange}
+            placeholder="Tell us about you"
           />
         </div>
         <div>
@@ -178,8 +182,25 @@ export default function HostSignUpForm() {
           />
         </div>
         <div>
-          <Button variant="contained" onClick={() => {}}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              hostData.uid = uid;
+              if (userServ.createHostData(hostData)) router.push("/");
+              else {
+                setValid(false);
+                setWarning(userServ.signupHostWarning(hostData));
+              }
+            }}
+          >
             Sign Up
+          </Button>
+          <Button
+            onClick={() => {
+              userRepo.printhostDB();
+            }}
+          >
+            Show Host DB
           </Button>
         </div>
       </Box>

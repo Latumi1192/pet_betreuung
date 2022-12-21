@@ -95,7 +95,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="First Name"
             name="firstname"
-            value={userData?.firstname}
+            value={userData.firstname}
             onChange={handleChange}
             placeholder="Enter your first name"
           />
@@ -105,7 +105,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="Last Name"
             name="lastname"
-            value={userData?.lastname}
+            value={userData.lastname}
             onChange={handleChange}
             placeholder="Enter your last name"
           />
@@ -117,7 +117,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="Addresse"
             name="addresse"
-            value={userData?.addresse}
+            value={userData.addresse}
             onChange={handleChange}
             placeholder="Enter your addresse"
           />
@@ -127,7 +127,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="ZIP Code"
             name="zipcode"
-            value={userData?.zipcode}
+            value={userData.zipcode}
             onChange={handleChange}
             placeholder="12345"
           />
@@ -139,7 +139,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="City"
             name="city"
-            value={userData?.city}
+            value={userData.city}
             onChange={handleChange}
             placeholder="Hamburg"
           />
@@ -149,7 +149,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="Country"
             name="country"
-            value={userData?.country}
+            value={userData.country}
             onChange={handleChange}
             placeholder="Germany"
           />
@@ -170,7 +170,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="Account"
             name="account"
-            value={userData?.account}
+            value={userData.account}
             onChange={handleChange}
             placeholder="Account"
           />
@@ -188,7 +188,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="Password"
             name="password"
-            value={userData?.password}
+            value={userData.password}
             onChange={handleChange}
             placeholder="Password"
           />
@@ -213,7 +213,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="Email"
             name="email"
-            value={userData?.email}
+            value={userData.email}
             onChange={handleChange}
             placeholder="abc@xy.z"
           />
@@ -223,7 +223,7 @@ export default function SignUpForm() {
             id="outlined-required"
             label="Telephone"
             name="telephone"
-            value={userData?.telephone}
+            value={userData.telephone}
             onChange={handleChange}
             placeholder="0123456789"
           />

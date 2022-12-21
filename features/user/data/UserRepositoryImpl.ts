@@ -1,10 +1,24 @@
+import { HostData } from "../domain/dto/HostData";
 import { PetData } from "../domain/dto/PetData";
 import { UserData } from "../domain/dto/UserData";
 import { UserRepository } from "./UserRepository";
 
 export class UserRepositoryImpl implements UserRepository {
+  addHost(host: HostData): boolean {
+    if (host == null) throw new Error("Check parameter");
+    this.hostDB = this.getHostDB();
+    this.hostDB.push(host);
+    localStorage.setItem("hostDB", JSON.stringify(this.hostDB));
+    console.log(this.hostDB);
+    return true;
+  }
+  editHost(host: HostData): boolean {
+    throw new Error("Method not implemented.");
+  }
   userDB: UserData[] = [];
   emptyDB: UserData[] = [];
+  hostDB: HostData[] = [];
+  emptyHostDB: HostData[] = [];
   emptyUserData: UserData = {
     firstname: "",
     lastname: "",
@@ -34,11 +48,20 @@ export class UserRepositoryImpl implements UserRepository {
     localStorage.setItem("userDB", JSON.stringify(this.userDB));
     return true;
   }
+
   getUserDB(): UserData[] {
     try {
       return JSON.parse(localStorage.getItem("userDB") || "");
     } catch (e) {
       return this.emptyDB;
+    }
+  }
+
+  getHostDB(): HostData[] {
+    try {
+      return JSON.parse(localStorage.getItem("hostDB") || "");
+    } catch (e) {
+      return this.emptyHostDB;
     }
   }
 
@@ -66,6 +89,12 @@ export class UserRepositoryImpl implements UserRepository {
     console.log(this.userDB);
   }
 
+  //Will delete later
+  printhostDB() {
+    this.hostDB = this.getHostDB();
+    console.log(this.hostDB);
+  }
+
   isRegistered(account: string, password: string): UserData {
     if (
       account === null ||
@@ -84,6 +113,17 @@ export class UserRepositoryImpl implements UserRepository {
         return this.userDB[i];
     }
     return this.emptyUserData;
+  }
+
+  isRegisteredHost(uid: number): boolean {
+    if (uid === 0) throw new Error("Check parameter");
+
+    let hostExisted = false;
+    this.hostDB = this.getHostDB();
+    for (let i = 0; i < this.hostDB.length; i++) {
+      if (this.hostDB[i].uid === uid) hostExisted = true;
+    }
+    return hostExisted;
   }
 
   addUser(user: UserData): boolean {
