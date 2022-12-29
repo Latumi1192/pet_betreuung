@@ -1,8 +1,9 @@
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import * as React from "react";
 import { useContext } from "react";
 import PageBar from "./PageBar";
 import { UserID } from "../../../../context/UserID";
+import PanelBox from "./PanelBox";
 export default function LandingPage() {
   const { uid, setUID } = useContext(UserID);
 
@@ -10,7 +11,7 @@ export default function LandingPage() {
     <div>
       <PageBar />
       <div>
-        <Typography>{uid}</Typography>
+        <PanelBox />
       </div>
     </div>
   );

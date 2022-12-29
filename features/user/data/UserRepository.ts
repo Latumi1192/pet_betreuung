@@ -15,4 +15,5 @@ export interface UserRepository {
   editUserData(uid: number, userData: UserData): boolean;
   addHost(host: HostData): boolean;
   editHost(host: HostData): boolean;
+  getHostDB(): HostData[];
 }

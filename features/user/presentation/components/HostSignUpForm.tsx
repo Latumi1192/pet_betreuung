@@ -14,8 +14,6 @@ import GenderButton from "./GenderButton";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
-import { UserData } from "../../domain/dto/UserData";
-import { PetData } from "../../domain/dto/PetData";
 import { HostData } from "../../domain/dto/HostData";
 import { UserID } from "../../../../context/UserID";
 import { useContext } from "react";

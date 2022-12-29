@@ -38,60 +38,45 @@ export default function PageBar() {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static">
-        <Toolbar variant="dense">
-          <Typography sx={{ mr: 20 }}>
-            <Button
-              sx={{ my: 2, color: "white", display: "block" }}
-              onClick={() => {
-                router.push("/");
-              }}
-            >
-              Logo
-            </Button>
-          </Typography>
-          <Typography sx={{ mr: 20 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Find a Host
-            </Button>
-          </Typography>
-          <Typography sx={{ mr: 20 }}>
-            <Button
-              sx={{ my: 2, color: "white", display: "block" }}
-              onClick={() => {
-                if (uid === 0) {
-                  router.push("/signin");
-                } else if (userRepo.isRegisteredHost(uid)) {
-                  setValid(false);
-                  setWarning("You are already a host");
-                } else {
-                  router.push("/hostsignup");
-                }
-              }}
-            >
-              Be a Host
-            </Button>
-          </Typography>
-          <Typography sx={{ mr: 20 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Tips
-            </Button>
-          </Typography>
-          <Typography sx={{ mr: 20 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Blogs
-            </Button>
-          </Typography>
-          <Typography sx={{ mr: 20 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Contacts
-            </Button>
-          </Typography>
+        <Toolbar sx={{ justifyContent: "space-evenly" }}>
+          <Button
+            sx={{ color: "white", display: "block" }}
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Logo
+          </Button>
+          <Button sx={{ my: 2, color: "white", display: "block" }}>
+            Find a Host
+          </Button>
+          <Button
+            sx={{ my: 2, color: "white", display: "block" }}
+            onClick={() => {
+              if (uid === 0) {
+                router.push("/signin");
+              } else if (userRepo.isRegisteredHost(uid)) {
+                setValid(false);
+                setWarning("You are already a host");
+              } else {
+                router.push("/hostsignup");
+              }
+            }}
+          >
+            Be a Host
+          </Button>
+          <Button sx={{ my: 2, color: "white", display: "block" }}>Tips</Button>
+          <Button sx={{ my: 2, color: "white", display: "block" }}>
+            Blogs
+          </Button>
+          <Button sx={{ my: 2, color: "white", display: "block" }}>
+            Contacts
+          </Button>
 
           {signin ? (
             <Typography sx={{ mr: 20 }}>
-              {" "}
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -136,6 +121,9 @@ export default function PageBar() {
                 </MenuItem>
                 <MenuItem onClick={handleClose}>Feedback</MenuItem>
               </Menu>
+              <Typography sx={{ mr: 20 }}>
+                {userRepo.getUserFromID(uid).account}
+              </Typography>
             </Typography>
           ) : (
             <Typography sx={{ mr: 20 }}>
