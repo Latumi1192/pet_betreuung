@@ -1,30 +1,26 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  FormGroup,
-  Checkbox,
-  FormControlLabel,
-  Button,
-  Typography,
-  Alert,
-  AlertTitle,
-} from "@mui/material";
+import { Button, Alert, AlertTitle } from "@mui/material";
 import GenderButton from "./GenderButton";
 import { useRouter } from "next/router";
 import { UserServiceImpl } from "../../domain/services/UserServiceImpl";
 import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
 import { UserData } from "../../domain/dto/UserData";
 import { PetData } from "../../domain/dto/PetData";
+import { UserID } from "../../../../context/UserID";
 import PageBar from "./PageBar";
+import { Fullscreen } from "@mui/icons-material";
 
-export default function SignUpForm() {
+export default function EditProfile() {
   const router = useRouter();
   const userServ = new UserServiceImpl();
   const userRepo = new UserRepositoryImpl();
 
   const [valid, setValid] = React.useState(true);
   const [warning, setWarning] = React.useState("");
+
+  const { uid, setUID } = React.useContext(UserID);
 
   const [userData, setUserData] = React.useState<UserData>({
     firstname: "",
@@ -43,16 +39,16 @@ export default function SignUpForm() {
     pet: new Array<PetData>(),
   });
 
+  React.useEffect(() => {
+    const foundUserData = userRepo.getUserFromID(uid);
+    setUserData(foundUserData);
+  }, []);
+
   const handleChange = (event: { target: { name: any; value: any } }) => {
     setUserData({
       ...userData,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const [passwordagain, setPasswordAgain] = React.useState("");
-  const handlePassword = (event: { target: { name: any; value: any } }) => {
-    setPasswordAgain(event.target.value);
   };
 
   return (
@@ -158,65 +154,7 @@ export default function SignUpForm() {
         <div>
           <GenderButton />
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <TextField
-            focused
-            required
-            id="outlined-required"
-            label="Account"
-            name="account"
-            value={userData.account}
-            onChange={handleChange}
-            placeholder="Account"
-          />
-          <Typography>*Must have 8-20 characters </Typography>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <TextField
-            focused
-            required
-            id="outlined-required"
-            label="Password"
-            name="password"
-            value={userData.password}
-            onChange={handleChange}
-            placeholder="Password"
-          />
-          <Typography>*Must have 8-20 characters </Typography>
-        </div>
         <div>
-          <TextField
-            focused
-            required
-            id="outlined-required"
-            label="Password again"
-            name="passwordagain"
-            value={passwordagain}
-            onChange={handlePassword}
-            placeholder="Password again"
-          />
-        </div>
-        <div>
-          <TextField
-            focused
-            required
-            id="outlined-required"
-            label="Email"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-            placeholder="abc@xy.z"
-          />
           <TextField
             focused
             required
@@ -234,55 +172,29 @@ export default function SignUpForm() {
             <input hidden accept="image/*" multiple type="file" />
           </Button>
         </div>
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Datenschutzerklärung "
-          />
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Allgemein geschäftsbedingungen "
-          />
-        </FormGroup>
         <div>
           <Button
             variant="contained"
             onClick={() => {
-              if (userServ.signupWarning(userData, passwordagain) != "") {
-                setWarning(userServ.signupWarning(userData, passwordagain));
-                setValid(false);
+              if (userServ.editProfile(uid, userData)) {
+                router.push("/userprofile");
               } else {
-                if (userServ.createUserData(userData, passwordagain))
-                  router.push("petsignup");
-                else {
-                  setWarning("Account or email is being used");
-                  setValid(false);
-                }
+                setValid(false);
+                setWarning(userServ.editWarning(userData));
               }
             }}
           >
-            Sign Up
+            Save
           </Button>
-          {/* <Button
-          variant="contained"
-          onClick={() => {
-            userRepo.resetDB();
-          }}
-        >
-          Clear DB
-        </Button> */}
-          {
-            <Button
-              variant="contained"
-              onClick={() => {
-                userRepo.printDB();
-              }}
-            >
-              Show DB
-            </Button>
-          }
+          <Button
+            onClick={() => {
+              router.push("/userprofile");
+            }}
+          >
+            Back to Profile
+          </Button>
         </div>
-      </Box>{" "}
+      </Box>
     </Box>
   );
 }

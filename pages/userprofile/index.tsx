@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import SignInForm from "../../features/user/presentation/components/SignInForm";
+import UserProfile from "../../features/user/presentation/components/UserProfile";
 
-const SignInPage = () => {
+const PasswordRecoverPage = () => {
   return (
     <Grid
       container
@@ -12,10 +12,10 @@ const SignInPage = () => {
       style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
-        <SignInForm />
+        <UserProfile />
       </Grid>
     </Grid>
   );
 };
 
-export default SignInPage;
+export default PasswordRecoverPage;

@@ -1,7 +1,7 @@
-import PageBar from "../components/PageBar";
+import LandingPage from "../features/user/presentation/components/LandingPage";
 
 const Home = () => {
-  return <PageBar />;
+  return <LandingPage />;
 };
 
 export default Home;
