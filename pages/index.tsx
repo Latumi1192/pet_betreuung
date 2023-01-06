@@ -1,7 +1,7 @@
-import LandingPage from "../features/user/presentation/components/LandingPage";
+import HostPage from "../features/user/presentation/components/HostPage";
 
 const Home = () => {
-  return <LandingPage />;
+  return <HostPage />;
 };
 
 export default Home;
