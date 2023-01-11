@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Dayjs } from "dayjs";
 import {
   Avatar,
@@ -16,9 +16,37 @@ import {
   DateRangePicker,
   DateRange,
 } from "@mui/x-date-pickers-pro/DateRangePicker";
+import { HostID } from "../../../../context/HostID";
+import { UserRepositoryImpl } from "../../data/UserRepositoryImpl";
+import { PetData } from "../../domain/dto/PetData";
+import { UserData } from "../../domain/dto/UserData";
 
 export default function HostPage() {
+  const userRepo = new UserRepositoryImpl();
+  const { hostUID, setHostUID } = useContext(HostID);
   const [value, setValue] = React.useState<DateRange<Dayjs>>([null, null]);
+  const [userData, setUserData] = React.useState<UserData>({
+    firstname: "",
+    lastname: "",
+    addresse: "",
+    zipcode: 0,
+    city: "",
+    country: "",
+    telephone: 0,
+    gender: "",
+    account: "",
+    password: "",
+    email: "",
+    profilepicture: "",
+    uid: 0,
+    pet: new Array<PetData>(),
+  });
+
+  React.useEffect(() => {
+    const foundUserData = userRepo.getUserFromID(hostUID);
+    setUserData(foundUserData);
+    console.log(userData.firstname);
+  }, []);
 
   return (
     <Box
@@ -54,7 +82,9 @@ export default function HostPage() {
             src="https://t4.ftcdn.net/jpg/03/03/62/45/360_F_303624505_u0bFT1Rnoj8CMUSs8wMCwoKlnWlh5Jiq.jpg"
           />
           <div>
-            <Typography>Placeholder for Name</Typography>
+            <Typography>
+              Name: {userData.firstname},{userData.lastname}
+            </Typography>
 
             <div>
               <img

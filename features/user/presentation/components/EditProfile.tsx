@@ -10,7 +10,6 @@ import { UserData } from "../../domain/dto/UserData";
 import { PetData } from "../../domain/dto/PetData";
 import { UserID } from "../../../../context/UserID";
 import PageBar from "./PageBar";
-import { Fullscreen } from "@mui/icons-material";
 
 export default function EditProfile() {
   const router = useRouter();
